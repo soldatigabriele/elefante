@@ -11,5 +11,17 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+//Frontend Desktop CSS
+// mix.styles([
+// 	], 
+// 'public/css/front.css');
+mix.js(
+	[
+	'resources/assets/js/app.js',
+	'node_modules/selectize/dist/js/selectize.js',
+	],
+'public/js');
+mix.styles(
+   	['resources/assets/sass/app.scss',
+	'node_modules/selectize/dist/css/selectize.css',],
+'public/css/front.css');
