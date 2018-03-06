@@ -13,16 +13,27 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
         <link href="{{ asset('css/front.css') }}" rel="stylesheet" type="text/css"   >
-
+        <style>
+            .selectize-input>.item{
+                background: #1b9dec !important;
+                background: #f9c244 !important;
+                border-radius: 4px ;
+                color: white !important;
+            }
+        </style>
         <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
     <body>
         <div class="container">
-
-
-
+<br>        
+    <div class="offset-3 col-6">
+        
+    <h2>Add a Fanta</h2>
             <form action="{{ route('store-fanta') }}" class="form-control" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
                 {{ csrf_field() }}
+<br>
+                <div class="col-12">
+    
                 <div class="form-group row">
                     <label for="flavour" class="col-sm-2 col-form-label">Flavour</label>
                     <div class="col-sm-10">
@@ -53,15 +64,19 @@
                         <input type="text" value="" name="tags" class="" id="tags" placeholder="Tags">
                     </div>
                 </div>
+            </div>
+
+            <div class="clearfix"><br></div>
 
 
-                <div class="form-group row">
-                    <div class="col-sm-10">
-                        <button type="submit" class="btn btn-primary">Sign in</button>
-                    </div>
+                <div class="offset-1 col-sm-10">
+                    <button type="submit" class="btn btn-outline-warning">Add</button>
                 </div>
-            </form>
+            <br>
+        </form>
     <div id="app"></div>
+</div>
+</div>
 </div>
 
 <script src="{{ asset('js/app.js') }}"></script>
