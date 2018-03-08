@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Country extends Model
 {
-    protected $fillable = ['name'];
+    protected $guarded = [];
 
     public function setNameAttribute($value)
     {
@@ -14,7 +14,7 @@ class Country extends Model
     }
 
     public function fantas(){
-  		return $this->belongsToMany('App\Fanta');
+  		return $this->hasMany('App\Fanta');
   	}
 
 

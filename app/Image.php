@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
-    //
+    protected $guarded = [];
+    
     public function fanta(){
       return $this->belongsTo('App\Fanta');
     }

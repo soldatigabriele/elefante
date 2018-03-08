@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Colour extends Model
 {
-    protected $fillable = ['name'];
+    protected $guarded = [];
 
     public function setNameAttribute($value)
     {

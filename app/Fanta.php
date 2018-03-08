@@ -9,17 +9,25 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Fanta extends Model
 {
 	use Taggable;
-  use SoftDeletes;
+	use SoftDeletes;
 
 	protected $guarded = [];
-  protected $dates = ['deleted_at'];
+	protected $dates = ['deleted_at'];
 
-	public function flavours(){
-		return $this->hasOne('App\Flavour');
+	public function flavour(){
+		return $this->belongsTo('App\Flavour');
 	}
 
-	public function countries(){
-		return $this->hasOne('App\Country');
+	public function getFlavour(){
+		return $this->flavour->name;
+	}
+
+	public function country(){
+		return $this->belongsTo('App\Country');
+	}
+
+	public function getCountry(){
+		return $this->country->name;
 	}
 
 	public function colours(){

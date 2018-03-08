@@ -6,8 +6,8 @@ use App\Fanta;
 use App\Colour;
 use App\Country;
 use App\Flavour;
+use App\Tag;
 use Illuminate\Http\Request;
-// use Conner\Tagging\Model\Tag;
 
 class FantaController extends Controller
 {
@@ -29,10 +29,9 @@ class FantaController extends Controller
     public function create()
     {
         $colours = Colour::all()->pluck('name');
-        // $colours = Tag::inGroup('Colours')->get();
         $countries = Country::all()->pluck('name');
         $flavours = Flavour::all()->pluck('name');
-        // $tags = Fanta::existingTags()->pluck('name');
+        $tags = Tag::all()->pluck('name');
 
         return view('create-fanta')->with(['tags' => $tags, 'countries' => $countries, 'colours' => $colours, 'flavours' => $flavours]);
     }
@@ -40,69 +39,45 @@ class FantaController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $r
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $r)
+    public function store(Request $request)
     {
 
         $fanta = Fanta::create([
-            'year' => $r->year,
+            'year' => $request->year,
         ]);
-
-        // $colours = explode(',', $r->colour);
-        // foreach($colours as $colour){
-        //     $t = Tag::create(['name'=>$colour]);
-        //     dump($t->name);
-        //     $t->setGroup('Colours');
-        //     dump('setted');
-        //     $fanta->tag($t->name);
-        //     dump($fanta);
-        // }
-        //
-        //
-        // $flavours = explode(',', $r->flavour);
-        // foreach($flavours as $flavour){
-        //     $t = Tag::create(['name'=>$flavour]);
-        //     $t->setGroup('Flavours');
-        //     $fanta->tag($t->name);
-        // }
-        //
-        // $countries = explode(',', $r->country);
-        // foreach($countries as $country){
-        //     $t = Tag::create(['name'=>$country]);
-        //     $t->setGroup('Countries');
-        //     $fanta->tag($t->name);
-        // }
-        //
-        // $generals = explode(',', $r->tags);
+        // $generals = explode(',', $request->tags);
         // foreach($generals as $general){
         //     $t = Tag::create(['name'=>$general]);
         //     $t->setGroup('Generals');
         //     $fanta->tag($t->name);
         // }
 
-        $colour = Colour::where('name', $r->colour)->first();
+        $colour = Colour::where('name', $request->colour)->first();
         if(!$colour){
-            $colour = Colour::create(['name'=>$r->colour]);
+            $colour = Colour::create(['name' => $request->colour]);
         }
 
-        $country = Country::where('name', $r->country)->first();
+        $country = Country::where('name', $request->country)->first();
         if(!$country){
-            Country::create(['name'=>$r->country]);
+            $country = Country::create(['name' => $request->country]);
         }
 
-        $flavour = Flavour::where('name', $r->flavour)->first();
+        $flavour = Flavour::where('name', $request->flavour)->first();
         if(!$flavour){
-            Flavour::create(['name'=>$r->flavour]);
+            $flavour = Flavour::create(['name' => $request->flavour]);
         }
 
+        $country->fantas()->save($fanta);
+        $flavour->fantas()->save($fanta);
 
         // attach colour/country
-        // $tags = $r->get('tags');
-        // $fanta->retag(explode(',', $r->tags));
+        // $tags = $request->get('tags');
+        // $fanta->retag(explode(',', $request->tags));
 
-        return back()->with(['success'=>'success']);
+        return back()->with(['success' => 'success']);
     }
 
     /**
