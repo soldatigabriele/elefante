@@ -16,6 +16,8 @@ class CreateFantasTable extends Migration
         Schema::create('fantas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('year')->nullable();
+            $table->integer('country_id')->nullable();
+            $table->integer('flavour_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

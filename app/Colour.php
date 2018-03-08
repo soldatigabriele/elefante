@@ -12,4 +12,9 @@ class Colour extends Model
     {
         $this->attributes['name'] = ucfirst($value);
     }
+
+    public function fanta(){
+      return $this->belongsToMany('App\Fanta');
+    }
+
 }

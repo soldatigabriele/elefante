@@ -13,4 +13,10 @@ class Country extends Model
         $this->attributes['name'] = ucfirst($value);
     }
 
+    public function fantas(){
+  		return $this->belongsToMany('App\Fanta');
+  	}
+
+
+
 }
