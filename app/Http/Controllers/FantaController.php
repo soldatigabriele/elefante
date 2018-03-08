@@ -7,7 +7,7 @@ use App\Colour;
 use App\Country;
 use App\Flavour;
 use Illuminate\Http\Request;
-use Conner\Tagging\Model\Tag;
+// use Conner\Tagging\Model\Tag;
 
 class FantaController extends Controller
 {
@@ -32,7 +32,7 @@ class FantaController extends Controller
         // $colours = Tag::inGroup('Colours')->get();
         $countries = Country::all()->pluck('name');
         $flavours = Flavour::all()->pluck('name');
-        $tags = Fanta::existingTags()->pluck('name');
+        // $tags = Fanta::existingTags()->pluck('name');
 
         return view('create-fanta')->with(['tags' => $tags, 'countries' => $countries, 'colours' => $colours, 'flavours' => $flavours]);
     }
@@ -59,7 +59,7 @@ class FantaController extends Controller
             $fanta->tag($t->name);
             dump($fanta);
         }
-        
+
 
         $flavours = explode(',', $r->flavour);
         foreach($flavours as $flavour){
@@ -86,7 +86,7 @@ class FantaController extends Controller
         // if(!$colour){
         //     $colour = Colour::create(['name'=>$r->colour]);
         // }
-        
+
         // $country = Country::where('name', $r->country)->first();
         // if(!$country){
         //     Country::create(['name'=>$r->country]);
@@ -136,7 +136,7 @@ class FantaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Fanta $fanta)
-    {
+{
         //
     }
 
