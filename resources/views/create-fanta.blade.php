@@ -137,7 +137,7 @@ $( document ).ready(function() {
             }
         }
     });
-    $('#countries').selectize({
+    $('#country').selectize({
         delimiter: ',',
         persist: false,
         valueField: 'country',

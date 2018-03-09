@@ -68,6 +68,13 @@
         <div class="flex-center position-ref full-height">
             
             <div class="content">
+
+                @if (!session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
+
                 <img src="{{ asset('fanta.jpg') }}" alt="" width="400px">
                 <div class="title m-b-md">
                     E le Fante?

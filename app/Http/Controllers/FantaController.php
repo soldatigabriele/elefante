@@ -18,7 +18,7 @@ class FantaController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        return view('index-fanta');
     }
 
     /**
@@ -56,7 +56,7 @@ class FantaController extends Controller
 
         $colours = explode(',', $request->colours);
         foreach($colours as $c){
-            $colour = Colour::where('name', $request->c)->first();
+            $colour = Colour::where('name', $c)->first();
             if(!$colour){
                 $colour = Colour::create(['name' => $c]);
                 $fanta->colours()->sync($colour, false);
@@ -64,6 +64,15 @@ class FantaController extends Controller
             }
         }
 
+        $tags = explode(',', $request->tags);
+
+        foreach($tags as $t){
+            $tag = Tag::where('name', $t)->first();
+            if(!$tag){
+                $tag = Tag::create(['name' => $t]);
+                $fanta->tags()->sync($tag, false);
+            }
+        }
         $country = Country::where('name', $request->country)->first();
         if(!$country){
             $country = Country::create(['name' => $request->country]);

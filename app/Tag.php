@@ -6,10 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
-    protected $guarded = [];
+    protected $fillable = ['name'];
 
-		public function fantas(){
-			return $this->belongsToMany('App\Fanta');
-		}
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = ucfirst(strtolower($value));
+    }
+    
+	public function fantas(){
+		return $this->belongsToMany('App\Fanta');
+	}
 		
 }

@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Fanta extends Model
 {
-	use Taggable;
 	use SoftDeletes;
 
 	protected $guarded = [];
@@ -44,6 +43,10 @@ class Fanta extends Model
 
 	public function tags(){
 		return $this->belongsToMany('App\Tag');
+	}
+	
+	public function getTags(){
+		return $this->tags->pluck('name');
 	}
 
 }

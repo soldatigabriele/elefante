@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFantasTagsTable extends Migration
+class CreateFantaTagTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateFantasTagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('fantas_tags', function (Blueprint $table) {
+        Schema::create('fanta_tag', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('fanta_id');
             $table->integer('tag_id');
@@ -28,6 +28,6 @@ class CreateFantasTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fantas_tags');
+        Schema::dropIfExists('fanta_tag');
     }
 }

@@ -10,11 +10,11 @@ class Colour extends Model
 
     public function setNameAttribute($value)
     {
-        $this->attributes['name'] = ucfirst($value);
+        $this->attributes['name'] = ucfirst(strtolower($value));
     }
 
-    public function fanta(){
-      return $this->belongsToMany('App\Fanta');
+    public function fantas(){
+    	return $this->belongsToMany('App\Fanta');
     }
 
 }

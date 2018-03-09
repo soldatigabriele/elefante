@@ -67,15 +67,8 @@
     <body>
         <div class="flex-center position-ref full-height">
             <div class="content">
+                This Fanta is:
                 <img src="{{ asset('fanta.jpg') }}" alt="" width="400px">
-                <div class="title m-b-md">
-                    E le Fante?
-                </div>
-
-                <div class="links">
-                    <a href="{{ route('create-fanta') }}">New Can</a>
-                    <a href="{{ route('index-fanta') }}">Search</a>
-                </div>
             </div>
         </div>
     </body>

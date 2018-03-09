@@ -12,6 +12,25 @@ class submitFantaTest extends TestCase
     use RefreshDatabase;
 
     /**
+     * Test route is reachable.
+     *
+     * @return void
+     */
+    public function test_route()
+    {
+        $user = factory("App\User")->create();
+        $this->actingAs($user);
+        $data = [
+            'year' => '2018',
+            'country' => 'uk',
+            'flavour' => 'red',
+        ];
+        $this->get('fanta/create', $data)->assertStatus(200);
+        $this->post('fanta', $data)->assertStatus(302);
+    }
+
+
+    /**
      * Test country, flavour and year relations.
      *
      * @return void
@@ -71,7 +90,41 @@ class submitFantaTest extends TestCase
                 in_array( strtolower(str_replace(' ', '', $value)), $colours)
             );
         }
+    }
 
+
+    /**
+     * Test store and recover tags.
+     *
+     * @return void
+     */
+    public function test_tags()
+    {
+        $user = factory("App\User")->create();
+        $this->actingAs($user);
+        $flavour = 'peach';
+        $country = 'Italy';
+        $tags = ['tag1', 'tag2', 'tag3'];
+        $tags_string = implode($tags, ',');
+
+        $data = [
+            'colours' => 'yellow, red',
+            'year' => '2018',
+            'tags' => $tags_string,
+            'country' => $country,
+            'flavour' => $flavour,
+        ];
+
+        $response = $this->post('fanta', $data);
+        
+        $fanta = Fanta::find(1);
+        // dump($fanta->tags()->pluck('name'));
+        // dd($fanta->getTags());
+        foreach($fanta->getTags() as $key => $value){
+            $this->assertTrue(
+                in_array( strtolower(str_replace(' ', '', $value)), $tags)
+            );
+        }
     }
 
     public function test_add_fanta()

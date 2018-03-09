@@ -10,7 +10,7 @@ class Flavour extends Model
 
     public function setNameAttribute($value)
     {
-        $this->attributes['name'] = ucfirst($value);
+        $this->attributes['name'] = ucfirst(strtolower($value));
     }
 
     public function fantas(){
