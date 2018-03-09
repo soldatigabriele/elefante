@@ -11,17 +11,18 @@
 |
 */
 
+
+//TODO
+// create factory to store fantas and update the relationships
+// create tests in retrieveFantaTest and add a vue component to render retrieved fantas
+
 Route::get('/', 'HomeController@index')->name('home');
-
 Route::get('fanta', 'FantaController@index')->name('index-fanta');
-
 Route::get('fanta/create', 'FantaController@create')->name('create-fanta')->middleware('auth');
-
 Route::get('fanta/{fanta}', 'FantaController@show')->name('show-fanta');
-
 Route::get('fanta/{fanta}/edit', 'FantaController@edit')->name('edit-fanta');
-
 Route::post('fanta', 'FantaController@store')->name('store-fanta');
+Route::get('fanta/find', 'FantaController@find')->name('find-fanta');
 
 
 Auth::routes();

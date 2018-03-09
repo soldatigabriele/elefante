@@ -1,39 +1,16 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.fanta')
 
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-        <link href="{{ asset('css/front.css') }}" rel="stylesheet" type="text/css"   >
-        <style>
-            .selectize-input>.item{
-                background: #1b9dec !important;
-                background: #f9c244 !important;
-                border-radius: 4px ;
-                color: white !important;
-            }
-        </style>
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-    </head>
-    <body>
-        <div class="container">
-<br>        
+@section('content')
+<div class="container">
+    <br>        
     <div class="offset-3 col-6">
-        
-    <h2>Add a Fanta</h2>
-            <form action="{{ route('store-fanta') }}" class="form-control" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
-                {{ csrf_field() }}
-<br>
-                <div class="col-12">
-    
+
+        <h2>Add a Fanta</h2>
+        <form action="{{ route('store-fanta') }}" class="form-control" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            <br>
+            <div class="col-12">
+
                 <div class="form-group row">
                     <label for="flavour" class="col-sm-2 col-form-label">Flavour</label>
                     <div class="col-sm-10">
@@ -69,101 +46,103 @@
             <div class="clearfix"><br></div>
 
 
-                <div class="offset-1 col-sm-10">
-                    <button type="submit" class="btn btn-outline-warning">Add</button>
-                </div>
+            <div class="offset-1 col-sm-10">
+                <button type="submit" class="btn btn-outline-warning">Add</button>
+            </div>
             <br>
         </form>
-    <div id="app"></div>
+        <div id="app"></div>
+    </div>
 </div>
 </div>
-</div>
+@endsection
 
+@section('scripts')
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('node_modules/selectize/dist/js/selectize.js') }}"></script>
 
 <script>
 
-var tags = [
+    var tags = [
     @foreach ($tags as $tag)
-        {tag: "{{$tag}}" },
+    {tag: "{{$tag}}" },
     @endforeach
-];
+    ];
 
-var countries = [
+    var countries = [
     @foreach ($countries as $country)
-        {country: "{{$country}}" },
+    {country: "{{$country}}" },
     @endforeach
-];
+    ];
 
-var colours = [
+    var colours = [
     @foreach ($colours as $colour)
-        {colour: "{{$colour}}" },
+    {colour: "{{$colour}}" },
     @endforeach
-];
+    ];
 
-var flavours = [
+    var flavours = [
     @foreach ($flavours as $flavour)
-        {flavour: "{{$flavour}}" },
+    {flavour: "{{$flavour}}" },
     @endforeach
-];
+    ];
 
-console.log(flavours);
-$( document ).ready(function() {
+    console.log(flavours);
+    $( document ).ready(function() {
 
-    $('#tags').selectize({
-        delimiter: ',',
-        persist: false,
-        valueField: 'tag',
-        labelField: 'tag',
-        searchField: 'tag',
-        options: tags,
-        create: function(input) {
-            return {
-                tag: input
+        $('#tags').selectize({
+            delimiter: ',',
+            persist: false,
+            valueField: 'tag',
+            labelField: 'tag',
+            searchField: 'tag',
+            options: tags,
+            create: function(input) {
+                return {
+                    tag: input
+                }
             }
-        }
-    });
-    $('#flavours').selectize({
-        delimiter: ',',
-        persist: false,
-        valueField: 'flavour',
-        labelField: 'flavour',
-        searchField: 'flavour',
-        options: flavours,
-        create: function(input) {
-            return {
-                flavour: input
+        });
+        $('#flavours').selectize({
+            delimiter: ',',
+            persist: false,
+            valueField: 'flavour',
+            labelField: 'flavour',
+            searchField: 'flavour',
+            options: flavours,
+            create: function(input) {
+                return {
+                    flavour: input
+                }
             }
-        }
-    });
-    $('#country').selectize({
-        delimiter: ',',
-        persist: false,
-        valueField: 'country',
-        labelField: 'country',
-        searchField: 'country',
-        options: countries,
-        create: function(input) {
-            return {
-                country: input
+        });
+        $('#country').selectize({
+            delimiter: ',',
+            persist: false,
+            valueField: 'country',
+            labelField: 'country',
+            searchField: 'country',
+            options: countries,
+            create: function(input) {
+                return {
+                    country: input
+                }
             }
-        }
-    });
-    $('#colours').selectize({
-        delimiter: ',',
-        persist: false,
-        valueField: 'colour',
-        labelField: 'colour',
-        searchField: 'colour',
-        options: colours,
-        create: function(input) {
-            return {
-                colour: input
+        });
+        $('#colours').selectize({
+            delimiter: ',',
+            persist: false,
+            valueField: 'colour',
+            labelField: 'colour',
+            searchField: 'colour',
+            options: colours,
+            create: function(input) {
+                return {
+                    colour: input
+                }
             }
-        }
+        });
     });
-});
 </script>
-    </body>
-</html>
+@endsection
+

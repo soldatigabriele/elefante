@@ -18,7 +18,13 @@ class FantaController extends Controller
      */
     public function index()
     {
-        return view('index-fanta');
+
+          $colours = Colour::all()->pluck('name');
+        $countries = Country::all()->pluck('name');
+        $flavours = Flavour::all()->pluck('name');
+        $tags = Tag::all()->pluck('name');
+
+        return view('index-fanta')->with(['tags' => $tags, 'countries' => $countries, 'colours' => $colours, 'flavours' => $flavours]);
     }
 
     /**
@@ -100,6 +106,17 @@ class FantaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Fanta $fanta)
+    {
+        //
+    }
+
+    /**
+     * Perform a research.
+     *
+     * @param  App\Fanta  $fanta
+     * @return \Illuminate\Http\Response
+     */
+    public function find(Request $request)
     {
         //
     }
