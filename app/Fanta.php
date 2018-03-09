@@ -31,7 +31,11 @@ class Fanta extends Model
 	}
 
 	public function colours(){
-		return $this->hasMany('App\Colour');
+		return $this->belongsToMany('App\Colour');
+	}
+
+	public function getColours(){
+		return $this->colours->pluck('name');
 	}
 
 	public function images(){
@@ -39,7 +43,7 @@ class Fanta extends Model
 	}
 
 	public function tags(){
-		return $this->hasMany('App\Tag');
+		return $this->belongsToMany('App\Tag');
 	}
 
 }

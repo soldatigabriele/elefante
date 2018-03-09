@@ -48,16 +48,20 @@ class FantaController extends Controller
         $fanta = Fanta::create([
             'year' => $request->year,
         ]);
-        // $generals = explode(',', $request->tags);
         // foreach($generals as $general){
         //     $t = Tag::create(['name'=>$general]);
         //     $t->setGroup('Generals');
         //     $fanta->tag($t->name);
         // }
 
-        $colour = Colour::where('name', $request->colour)->first();
-        if(!$colour){
-            $colour = Colour::create(['name' => $request->colour]);
+        $colours = explode(',', $request->colours);
+        foreach($colours as $c){
+            $colour = Colour::where('name', $request->c)->first();
+            if(!$colour){
+                $colour = Colour::create(['name' => $c]);
+                $fanta->colours()->sync($colour, false);
+                // dump($fanta->colours()->pluck('name'));
+            }
         }
 
         $country = Country::where('name', $request->country)->first();

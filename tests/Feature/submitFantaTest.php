@@ -12,11 +12,11 @@ class submitFantaTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * A basic test example.
+     * Test country, flavour and year relations.
      *
      * @return void
      */
-    public function testExample()
+    public function test_store_country_flavour_year()
     {
         $user = factory("App\User")->create();
         $this->actingAs($user);
@@ -24,9 +24,7 @@ class submitFantaTest extends TestCase
         $country = 'Italy';
 
         $data = [
-            'tags' => 'test, test2',
             'year' => '2018',
-            'colour' => 'red, yellow',
             'country' => $country,
             'flavour' => $flavour,
         ];
@@ -38,6 +36,41 @@ class submitFantaTest extends TestCase
         $this->assertEquals(ucfirst($country), $fanta->getCountry());
         
         $this->assertDatabaseHas('fantas', ['country_id'=>1, 'flavour_id'=>1]);
+
+    }
+
+
+    /**
+     * Test store and recover colours.
+     *
+     * @return void
+     */
+    public function test_colours()
+    {
+        $user = factory("App\User")->create();
+        $this->actingAs($user);
+        $flavour = 'peach';
+        $country = 'Italy';
+        $colours = ['red', 'green', 'blue'];
+        $cols = implode($colours, ',');
+
+        $data = [
+            'tags' => 'test, test2',
+            'year' => '2018',
+            'colours' => $cols,
+            'country' => $country,
+            'flavour' => $flavour,
+        ];
+
+        $response = $this->post('fanta', $data);
+        
+        $fanta = Fanta::find(1);
+        // dd($fanta->colours()->pluck('name'));
+        foreach($fanta->getColours() as $key => $value){
+            $this->assertTrue(
+                in_array( strtolower(str_replace(' ', '', $value)), $colours)
+            );
+        }
 
     }
 

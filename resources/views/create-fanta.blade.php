@@ -49,13 +49,13 @@
                 <div class="form-group row">
                     <label for="" class="col-sm-2 col-form-label">Coutry</label>
                     <div class="col-sm-10">
-                        <input type="text" class="" id="countries" placeholder="Country" value="" name="country">
+                        <input type="text" class="" id="country" placeholder="Country" value="" name="country">
                     </div>
                 </div>  
                 <div class="form-group row">
-                    <label for="colour" class="col-sm-2 col-form-label">Colour</label>
+                    <label for="colours" class="col-sm-2 col-form-label">Colour</label>
                     <div class="col-sm-10">
-                        <input type="text" class="" id="colours" placeholder="Colour" value="" name="colour">
+                        <input type="text" class="" id="colours" placeholder="Colours" value="" name="colours">
                     </div>
                 </div>                                
                 <div class="form-group row">
