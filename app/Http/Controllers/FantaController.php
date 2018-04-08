@@ -118,7 +118,62 @@ class FantaController extends Controller
      */
     public function find(Request $request)
     {
-        dd($request->all());
+        $fantas = Fanta::all();
+
+        // YEAR
+        $fantas_year = Fanta::where('year', $request->year)->get();
+        if($fantas_year->count()){
+            $fantas = $fantas->intersect($fantas_year);
+        }
+
+        // COUNTRY
+        $country_id = $request->country;
+        $fantas_country = Fanta::where('country_id', $country_id)->get();
+        if($fantas_country->count()){
+            $fantas = $fantas->intersect($fantas_country);
+        }
+
+        // FLAVOUR
+        $flavour_id = $request->flavour;
+        $fantas_flavour = Fanta::where('flavour_id', $flavour_id)->get();
+        if($fantas_flavour->count()){
+            $fantas = $fantas->intersect($fantas_flavour);
+        }
+
+        // TAGS
+        $tags = explode(',',$request->tags);
+        if($tags[0]){
+            $tags_ids = [];
+            foreach($tags as $tag){
+                $tags = Tag::whereIn('name', $tag)->get();
+                dd($tags);
+                $tag = Tag::where('name', $tag)->first();
+                $tags_ids[] = ($tag->id)??  $tag->id;
+            }
+            $fantas_tags =  Fanta::whereHas('tags', function($q) use($tags_ids) {
+                $q->whereIn('tags.id', $tags_ids);
+            })->get();
+            if($fantas_tags->count()){
+                $fantas = $fantas->intersect($fantas_tags);
+            }
+        }
+
+        // COLOURS
+        $colours = explode(',',$request->colours);
+        if($colours[0]){
+            $colours_ids = [];
+            foreach($colours as $colour){
+                $colours_ids[] = Colour::where('name', $colour)->first()->id;
+            }
+            $fantas_colours = Fanta::whereHas('colours', function($q) use($colours_ids) {
+                $q->whereIn('colours.id', $colours_ids);
+            })->get();
+            if($fantas_colours->count()){
+                $fantas = $fantas->intersect($fantas_colours);
+            }
+        }
+
+        return view('index-fanta')->with('fantas', $fantas);
     }
 
     /**

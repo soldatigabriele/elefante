@@ -55,10 +55,15 @@
         </form>
     </div>
 </div>
-
-<div id="app">
-    <div id="fante"></div>
-</div>
+@if(isset($fantas))
+    @foreach($fantas as $fanta)
+        {{ $fanta }}
+    <!-- <div id="app"> -->
+        <!-- <div id="fante"></div> -->
+    <!-- </div> -->
+    
+    @endforeach
+@endif
 
 @endsection
 
