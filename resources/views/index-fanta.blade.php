@@ -8,7 +8,7 @@
 
 
         <h2>Get a Fanta!</h2>
-        <form action="{{ route('store-fanta') }}" class="form-control" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
+        <form action="{{ route('find-fanta') }}" class="form-control" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
             {{ csrf_field() }}
             <br>
             <div class="col-12">
@@ -49,7 +49,7 @@
 
 
             <div class="offset-1 col-sm-10">
-                <button type="submit" class="btn btn-outline-warning">Add</button>
+                <button type="submit" class="btn btn-outline-warning">Search</button>
             </div>
             <br>
         </form>

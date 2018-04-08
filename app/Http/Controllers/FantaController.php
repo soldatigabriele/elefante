@@ -19,7 +19,7 @@ class FantaController extends Controller
     public function index()
     {
 
-          $colours = Colour::all()->pluck('name');
+        $colours = Colour::all()->pluck('name');
         $countries = Country::all()->pluck('name');
         $flavours = Flavour::all()->pluck('name');
         $tags = Tag::all()->pluck('name');
@@ -107,7 +107,7 @@ class FantaController extends Controller
      */
     public function show(Fanta $fanta)
     {
-        //
+        
     }
 
     /**
@@ -118,7 +118,7 @@ class FantaController extends Controller
      */
     public function find(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**

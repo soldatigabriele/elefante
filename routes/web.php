@@ -22,7 +22,27 @@ Route::get('fanta/create', 'FantaController@create')->name('create-fanta')->midd
 Route::get('fanta/{fanta}', 'FantaController@show')->name('show-fanta');
 Route::get('fanta/{fanta}/edit', 'FantaController@edit')->name('edit-fanta');
 Route::post('fanta', 'FantaController@store')->name('store-fanta');
-Route::get('fanta/find', 'FantaController@find')->name('find-fanta');
+Route::post('fanta/find', 'FantaController@find')->name('find-fanta');
 
 
 Auth::routes();
+
+
+Route::get('seed', function(){
+	// $fantas = \App\Fanta::take(10)->get();
+	// dump($fantas);
+
+	//$tags = ["Sugar Free", "Low Sugar", "Uden", "Med", "Zero", "Lite", "Senza Zuccheri", "Amara", "Nuova Ricetta"]; 
+	// $colours = ["Red", "Orange", "Yellow", "Green", "Cyan", "Blue", "Indigo", "Violet", "Purple", "Magenta", "Pink", "Brown", "White", "Gray", "Black"];
+
+	// $flavours = ["Orange", "Green Apple", "Strawberry", "Pineapple", "Mango", "Lemon", "Grape", "Cantaloupe", "Black Currant", "Raspberry", "Blueberry"];
+	// $countries = ["Apple", "Lemon", "Blue", "White", "Orange", "Green", "", "Luxembourg", "Cyprus", "Malta", "Czech Republic", "Netherlands", "Denmark", "Poland", "Estonia", "Portugal", "Finland", "Romania", "France", "Slovakia", "Germany", "Slovenia", "Greece", "Spain", "Hungary", "Sweden", "Ireland",	"UK"];
+	// foreach($colours as $colour){
+	// 	$c = new \App\Colour;
+	// 	$c->name = $colour;
+	// 	$c->save();
+	// 	echo($c->name);
+	// 	echo ' ';
+	// }
+	// return \App\Colour::all();
+});
