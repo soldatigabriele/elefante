@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFantasTable extends Migration
+class CreateLogosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateFantasTable extends Migration
      */
     public function up()
     {
-        Schema::create('fantas', function (Blueprint $table) {
+        Schema::create('logos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('year')->nullable();
-            $table->integer('country_id')->nullable();
-            $table->integer('flavour_id')->nullable();
-            $table->integer('logo_id')->nullable();
+            $table->string('name');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -31,6 +27,6 @@ class CreateFantasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fantas');
+        Schema::dropIfExists('logos');
     }
 }

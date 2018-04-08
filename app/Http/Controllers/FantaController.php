@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Tag;
+use App\Logo;
 use App\Fanta;
 use App\Colour;
 use App\Country;
 use App\Flavour;
-use App\Tag;
 use Illuminate\Http\Request;
 
 class FantaController extends Controller
@@ -54,20 +55,16 @@ class FantaController extends Controller
         $fanta = Fanta::create([
             'year' => $request->year,
         ]);
-        // foreach($generals as $general){
-        //     $t = Tag::create(['name'=>$general]);
-        //     $t->setGroup('Generals');
-        //     $fanta->tag($t->name);
-        // }
+
+        $fanta->logo_id = $request->logo;
 
         $colours = explode(',', $request->colours);
         foreach($colours as $c){
             $colour = Colour::where('name', $c)->first();
             if(!$colour){
                 $colour = Colour::create(['name' => $c]);
-                $fanta->colours()->sync($colour, false);
-                // dump($fanta->colours()->pluck('name'));
             }
+            $fanta->colours()->sync($colour, false);
         }
 
         $tags = explode(',', $request->tags);
@@ -92,10 +89,6 @@ class FantaController extends Controller
         $country->fantas()->save($fanta);
         $flavour->fantas()->save($fanta);
 
-        // attach colour/country
-        // $tags = $request->get('tags');
-        // $fanta->retag(explode(',', $request->tags));
-
         return back()->with(['success' => 'success']);
     }
 
@@ -119,6 +112,16 @@ class FantaController extends Controller
     public function find(Request $request)
     {
         $fantas = Fanta::all();
+
+
+        // LOGO
+        $logo = ($request->logo);
+        if($logo !== 'all'){
+            $fantas_logo = Fanta::where('logo_id', $logo)->get();
+            if($fantas_logo->count()){
+                $fantas = $fantas->intersect($fantas_logo);
+            }
+        }
 
         // YEAR
         $fantas_year = Fanta::where('year', $request->year)->get();

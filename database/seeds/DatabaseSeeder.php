@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call(CountriesTableSeeder::class);
         $this->call(FlavoursTableSeeder::class);
 	    $this->call(ColoursTableSeeder::class);
-	    $this->call(TagsTableSeeder::class);
+	    $this->call(LogosTableSeeder::class);
+        $this->call(TagsTableSeeder::class);
         
         factory('App\Fanta', 30)->create();
 

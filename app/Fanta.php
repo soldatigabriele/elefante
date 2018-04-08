@@ -25,6 +25,10 @@ class Fanta extends Model
 		return $this->belongsTo('App\Country');
 	}
 
+	public function logo(){
+		return $this->belongsTo('App\Logo');
+	}
+
 	public function getCountry(){
 		return $this->country->name;
 	}

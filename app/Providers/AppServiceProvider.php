@@ -14,7 +14,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer('*', function ($view) {
-            $view->with('tags', \App\Tag::all()->pluck('name'));
+            $view->with('tags',  \App\Tag::all()->pluck('name'));
+            $view->with('logos',  \App\Logo::all());
             $view->with('colours', \App\Colour::all()->pluck('name'));
             $view->with('flavours', \App\Flavour::all()->pluck('name'));
             $view->with('countries', \App\Country::all()->pluck('name'));

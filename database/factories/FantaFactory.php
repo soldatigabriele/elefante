@@ -1,5 +1,6 @@
 <?php
 
+use App\Logo;
 use App\Country;
 use App\Flavour;
 use Faker\Generator as Faker;
@@ -20,5 +21,6 @@ $factory->define(App\Fanta::class, function (Faker $faker) {
 	'year' => random_int(2000, 2020),
 	'country_id' => Country::inRandomOrder()->first(),
 	'flavour_id' => Flavour::inRandomOrder()->first(),
+	'logo_id' => Logo::inRandomOrder()->first(),
     ];
 });

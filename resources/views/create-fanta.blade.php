@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <br>        
-    <div class="offset-3 col-6">
+    <div class="col-12">
 
         <h2>Add a Fanta</h2>
         <form action="{{ route('store-fanta') }}" class="form-control" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
@@ -11,6 +11,14 @@
             <br>
             <div class="col-12">
 
+                <div class="form-group col-12">
+                    @foreach($logos as $logo)
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="{{ $logo->name }}" name="logo" value="{{ $logo->id }}">
+                        <label class="form-check-label" for="{{ $logo->name }}">{{ $logo->name }}</label>
+                    </div>
+                    @endforeach
+                </div>
                 <div class="form-group row">
                     <label for="flavour" class="col-sm-2 col-form-label">Flavour</label>
                     <div class="col-sm-10">

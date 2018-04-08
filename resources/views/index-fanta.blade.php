@@ -12,8 +12,20 @@
             <br>
             <div class="col-12">
 
+                <div class="form-group col-12">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="all_logos" name="logo" value="all" @if(old('logo')) checked @endif checked>
+                        <label class="form-check-label" for="all_logos">All Logos</label>
+                    </div>
+                    @foreach($logos as $logo)
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="{{ $logo->name }}" name="logo" value="{{ $logo->id }}" @if(old('logo') == $logo->id) checked @endif>
+                        <label class="form-check-label" for="{{ $logo->name }}">{{ $logo->name }}</label>
+                    </div>
+                    @endforeach
+                </div>
                 <div class="form-group row">
-                    <label for="flavour" class="col-sm-2 col-form-label">Flavour</label>
+                    <label for="flavour" class="col-2 col-form-label">Flavour</label>
                     <div class="col-sm-10">
                         <input type="text" class="" id="flavours" placeholder="Flavour" value="{{ old('flavour') }}" name="flavour">
                     </div>
