@@ -4,8 +4,7 @@
 
 <div class="container">
     <br>
-    <div class="offset-3 col-6">
-
+    <div class=" col-12">
 
         <h2>Get a Fanta!</h2>
         <form action="{{ route('find-fanta') }}" class="form-control" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
@@ -16,31 +15,31 @@
                 <div class="form-group row">
                     <label for="flavour" class="col-sm-2 col-form-label">Flavour</label>
                     <div class="col-sm-10">
-                        <input type="text" class="" id="flavours" placeholder="Flavour" value="" name="flavour">
+                        <input type="text" class="" id="flavours" placeholder="Flavour" value="{{ old('flavour') }}" name="flavour">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="year" class="col-sm-2 col-form-label">Year</label>
                     <div class="col-sm-10">
-                        <input type="integer" class="form-control" id="year" placeholder="Year" value="" name="year">
+                        <input type="integer" class="form-control" id="year" placeholder="Year" value="{{ old('year') }}" name="year">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="" class="col-sm-2 col-form-label">Coutry</label>
                     <div class="col-sm-10">
-                        <input type="text" class="" id="country" placeholder="Country" value="" name="country">
+                        <input type="text" class="" id="country" placeholder="Country" value="{{ old('country') }}" name="country">
                     </div>
                 </div>  
                 <div class="form-group row">
                     <label for="colours" class="col-sm-2 col-form-label">Colour</label>
                     <div class="col-sm-10">
-                        <input type="text" class="" id="colours" placeholder="Colours" value="" name="colours">
+                        <input type="text" class="" id="colours" placeholder="Colours" value="{{ old('colours') }}" name="colours">
                     </div>
                 </div>                                
                 <div class="form-group row">
                     <label for="tags" class="col-sm-2 col-form-label">Tags</label>
                     <div class="col-sm-10">
-                        <input type="text" value="" name="tags" class="" id="tags" placeholder="Tags">
+                        <input type="text" value="{{ old('tags') }}" name="tags" class="" id="tags" placeholder="Tags">
                     </div>
                 </div>
             </div>
@@ -55,13 +54,27 @@
         </form>
     </div>
 </div>
-@if(isset($fantas))
-    @foreach($fantas as $fanta)
-        {{ $fanta }}
-    <!-- <div id="app"> -->
-        <!-- <div id="fante"></div> -->
-    <!-- </div> -->
-    
+
+@if (session()->has('fantas'))
+
+    @foreach(session('fantas') as $fs)
+        @foreach($fs as $fanta)
+
+            {{ $fanta->year }}
+            {{ $fanta->country->name }}
+            {{ $fanta->flavour->name }}
+
+            - Tags:
+            @foreach($fanta->tags as $tag)
+                {{ $tag->name }}
+            @endforeach
+
+            - Colours:
+            @foreach($fanta->colours as $colour)
+                {{ $colour->name }}
+            @endforeach
+            <hr>
+        @endforeach
     @endforeach
 @endif
 

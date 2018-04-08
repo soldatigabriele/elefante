@@ -127,17 +127,32 @@ class FantaController extends Controller
         }
 
         // COUNTRY
-        $country_id = $request->country;
-        $fantas_country = Fanta::where('country_id', $country_id)->get();
-        if($fantas_country->count()){
-            $fantas = $fantas->intersect($fantas_country);
+        $countries = explode(',',$request->country);
+        if($countries[0]){
+            $countries_ids = [];
+            foreach($countries as $country){
+                $country = Country::where('name', $country)->first();
+                $countries_ids[] = $country->id;
+            }
+            $fantas_country = Fanta::whereIn('country_id', $countries_ids)->get();
+            if($fantas_country->count()){
+                $fantas = $fantas->intersect($fantas_country);
+            }
         }
 
+
         // FLAVOUR
-        $flavour_id = $request->flavour;
-        $fantas_flavour = Fanta::where('flavour_id', $flavour_id)->get();
-        if($fantas_flavour->count()){
-            $fantas = $fantas->intersect($fantas_flavour);
+        $flavours = explode(',',$request->flavour);
+        if($flavours[0]){
+            $flavours_ids = [];
+            foreach($flavours as $flavour){
+                $flavour = Flavour::where('name', $flavour)->first();
+                $flavours_ids[] = $flavour->id;
+            }
+            $fantas_flavour = Fanta::whereIn('flavour_id', $flavours_ids)->get();
+            if($fantas_flavour->count()){
+                $fantas = $fantas->intersect($fantas_flavour);
+            }
         }
 
         // TAGS
@@ -145,10 +160,8 @@ class FantaController extends Controller
         if($tags[0]){
             $tags_ids = [];
             foreach($tags as $tag){
-                $tags = Tag::whereIn('name', $tag)->get();
-                dd($tags);
                 $tag = Tag::where('name', $tag)->first();
-                $tags_ids[] = ($tag->id)??  $tag->id;
+                $tags_ids[] = $tag->id;
             }
             $fantas_tags =  Fanta::whereHas('tags', function($q) use($tags_ids) {
                 $q->whereIn('tags.id', $tags_ids);
@@ -173,7 +186,8 @@ class FantaController extends Controller
             }
         }
 
-        return view('index-fanta')->with('fantas', $fantas);
+        return redirect()->back()->with('fantas', [$fantas])->withInput();
+        // return view('index-fanta')->with('fantas', $fantas)->withInput($request->all());
     }
 
     /**
