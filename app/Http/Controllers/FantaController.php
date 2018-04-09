@@ -25,7 +25,7 @@ class FantaController extends Controller
         $flavours = Flavour::all()->pluck('name');
         $tags = Tag::all()->pluck('name');
 
-        return view('index-fanta')->with(['tags' => $tags, 'countries' => $countries, 'colours' => $colours, 'flavours' => $flavours]);
+        return view('fanta.index')->with(['tags' => $tags, 'countries' => $countries, 'colours' => $colours, 'flavours' => $flavours]);
     }
 
     /**
@@ -40,7 +40,7 @@ class FantaController extends Controller
         $flavours = Flavour::all()->pluck('name');
         $tags = Tag::all()->pluck('name');
 
-        return view('create-fanta')->with(['tags' => $tags, 'countries' => $countries, 'colours' => $colours, 'flavours' => $flavours]);
+        return view('fanta.create')->with(['tags' => $tags, 'countries' => $countries, 'colours' => $colours, 'flavours' => $flavours]);
     }
 
     /**
@@ -68,7 +68,6 @@ class FantaController extends Controller
         }
 
         $tags = explode(',', $request->tags);
-
         foreach($tags as $t){
             $tag = Tag::where('name', $t)->first();
             if(!$tag){
@@ -76,6 +75,7 @@ class FantaController extends Controller
                 $fanta->tags()->sync($tag, false);
             }
         }
+
         $country = Country::where('name', $request->country)->first();
         if(!$country){
             $country = Country::create(['name' => $request->country]);
@@ -112,7 +112,6 @@ class FantaController extends Controller
     public function find(Request $request)
     {
         $fantas = Fanta::all();
-
 
         // LOGO
         $logo = ($request->logo);
@@ -190,7 +189,7 @@ class FantaController extends Controller
         }
 
         return redirect()->back()->with('fantas', [$fantas])->withInput();
-        // return view('index-fanta')->with('fantas', $fantas)->withInput($request->all());
+        // return view('fanta.index')->with('fantas', $fantas)->withInput($request->all());
     }
 
     /**
@@ -201,7 +200,7 @@ class FantaController extends Controller
      */
     public function edit(Fanta $fanta)
     {
-        //
+        return view('fanta.edit')->with(['fanta' => $fanta]);
     }
 
     /**
@@ -211,9 +210,45 @@ class FantaController extends Controller
      * @param  App\Fanta  $fanta
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Fanta $fanta)
-{
-        //
+    public function update(Fanta $fanta, Request $request)
+    {
+        $country = Country::where('name', $request->country)->first();
+        $flavour = Flavour::where('name', $request->flavour)->first();
+        $fanta->country_id = $country->id;
+        $fanta->logo_id = $request->logo;
+        $fanta->flavour_id = $flavour->id;
+        $fanta->save();
+
+        $country->fantas()->save($fanta);
+        $flavour->fantas()->save($fanta);
+
+        $colours = explode(',', $request->colours);
+        if($colours[0]){
+            $colours_ids = [];
+            foreach($colours as $c){
+                $colour = Colour::where('name', $c)->first();
+                if(!$colour){
+                    $colour = Colour::create(['name' => $c]);
+                }
+                $colours_ids[] = $colour->id;
+            }
+        }
+        $fanta->colours()->sync($colours_ids, true);
+
+        $tags = explode(',', $request->tags);
+        if($tags[0]){
+            $tags_ids = [];
+            foreach($tags as $t){
+                $tag = Tag::where('name', $t)->first();
+                if(!$tag){
+                    $tag = Tag::create(['name' => $t]);
+                }
+                $tags_ids[] = $tag->id;
+            }
+        }
+        $fanta->tags()->sync($tags_ids, true);
+
+        return back()->with('status', 'Fanta updated successfully');    
     }
 
     /**

@@ -1,52 +1,57 @@
 @extends('layouts.fanta')
 
 @section('content')
-<div class="container">
-    <br>        
-    <div class="col-12">
 
-        <h2>Add a Fanta</h2>
-        <form action="{{ route('store-fanta') }}" class="form-control" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
+<div class="container">
+    <br>
+    <div class=" col-12">
+
+        <h2>Get a Fanta!</h2>
+        <form action="{{ route('find-fanta') }}" class="form-control" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
             {{ csrf_field() }}
             <br>
             <div class="col-12">
 
                 <div class="form-group col-12">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="all_logos" name="logo" value="all" @if(old('logo')) checked @endif checked>
+                        <label class="form-check-label" for="all_logos">All Logos</label>
+                    </div>
                     @foreach($logos as $logo)
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="{{ $logo->name }}" name="logo" value="{{ $logo->id }}">
+                        <input class="form-check-input" type="radio" id="{{ $logo->name }}" name="logo" value="{{ $logo->id }}" @if(old('logo') == $logo->id) checked @endif>
                         <label class="form-check-label" for="{{ $logo->name }}">{{ $logo->name }}</label>
                     </div>
                     @endforeach
                 </div>
                 <div class="form-group row">
-                    <label for="flavour" class="col-sm-2 col-form-label">Flavour</label>
+                    <label for="flavour" class="col-2 col-form-label">Flavour</label>
                     <div class="col-sm-10">
-                        <input type="text" class="" id="flavours" placeholder="Flavour" value="" name="flavour">
+                        <input type="text" class="" id="flavours" placeholder="Flavour" value="{{ old('flavour') }}" name="flavour">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="year" class="col-sm-2 col-form-label">Year</label>
                     <div class="col-sm-10">
-                        <input type="integer" class="form-control" id="year" placeholder="Year" value="" name="year">
+                        <input type="integer" class="form-control" id="year" placeholder="Year" value="{{ old('year') }}" name="year">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="" class="col-sm-2 col-form-label">Coutry</label>
                     <div class="col-sm-10">
-                        <input type="text" class="" id="country" placeholder="Country" value="" name="country">
+                        <input type="text" class="" id="country" placeholder="Country" value="{{ old('country') }}" name="country">
                     </div>
                 </div>  
                 <div class="form-group row">
                     <label for="colours" class="col-sm-2 col-form-label">Colour</label>
                     <div class="col-sm-10">
-                        <input type="text" class="" id="colours" placeholder="Colours" value="" name="colours">
+                        <input type="text" class="" id="colours" placeholder="Colours" value="{{ old('colours') }}" name="colours">
                     </div>
                 </div>                                
                 <div class="form-group row">
                     <label for="tags" class="col-sm-2 col-form-label">Tags</label>
                     <div class="col-sm-10">
-                        <input type="text" value="" name="tags" class="" id="tags" placeholder="Tags">
+                        <input type="text" value="{{ old('tags') }}" name="tags" class="" id="tags" placeholder="Tags">
                     </div>
                 </div>
             </div>
@@ -55,22 +60,41 @@
 
 
             <div class="offset-1 col-sm-10">
-                <button type="submit" class="btn btn-outline-warning">Add</button>
+                <button type="submit" class="btn btn-outline-warning">Search</button>
             </div>
             <br>
         </form>
-        <div id="app"></div>
     </div>
 </div>
-</div>
+
+@if (session()->has('fantas'))
+
+    @foreach(session('fantas') as $fs)
+        @foreach($fs as $fanta)
+
+            {{ $fanta->year }}
+            {{ $fanta->country->name }}
+            {{ $fanta->flavour->name }}
+
+            - Tags:
+            @foreach($fanta->tags as $tag)
+                {{ $tag->name }}
+            @endforeach
+
+            - Colours:
+            @foreach($fanta->colours as $colour)
+                {{ $colour->name }}
+            @endforeach
+            <hr>
+        @endforeach
+    @endforeach
+@endif
+
 @endsection
 
+
 @section('scripts')
-<script src="{{ asset('js/app.js') }}"></script>
-<script src="{{ asset('node_modules/selectize/dist/js/selectize.js') }}"></script>
-
 <script>
-
     var tags = [
     @foreach ($tags as $tag)
     {tag: "{{$tag}}" },
@@ -117,6 +141,7 @@
             valueField: 'flavour',
             labelField: 'flavour',
             searchField: 'flavour',
+            maxItems: 1,
             options: flavours,
             create: function(input) {
                 return {
@@ -130,6 +155,7 @@
             valueField: 'country',
             labelField: 'country',
             searchField: 'country',
+            maxItems: 1,
             options: countries,
             create: function(input) {
                 return {
@@ -153,4 +179,3 @@
     });
 </script>
 @endsection
-

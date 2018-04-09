@@ -10,7 +10,7 @@ class Fanta extends Model
 {
 	use SoftDeletes;
 
-	protected $guarded = [];
+	protected $fillable = ['country_id', 'year', 'flavour_id', 'logo_id'];
 	protected $dates = ['deleted_at'];
 
 	public function flavour(){

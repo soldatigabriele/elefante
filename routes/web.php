@@ -21,12 +21,14 @@ Route::get('fanta', 'FantaController@index')->name('index-fanta');
 Route::get('fanta/create', 'FantaController@create')->name('create-fanta')->middleware('auth');
 Route::get('fanta/{fanta}', 'FantaController@show')->name('show-fanta');
 Route::get('fanta/{fanta}/edit', 'FantaController@edit')->name('edit-fanta');
+Route::put('fanta/{fanta}', 'FantaController@update')->name('update-fanta');
 Route::post('fanta', 'FantaController@store')->name('store-fanta');
 Route::post('fanta/find', 'FantaController@find')->name('find-fanta');
 
 
 Auth::routes();
 
+// Route::resource('gab', 'FantaController');
 
 Route::get('seed', function(){
 	// $fantas = \App\Fanta::take(10)->get();
