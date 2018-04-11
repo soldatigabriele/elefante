@@ -9,8 +9,8 @@
             {{ session('status') }}
         </div>
     @endif
+    <a role="buttton" href="{{route('home')}}" class="btn btn-success">Home</a>
     <div class="col-12">
-
         <h2>Edit a Fanta</h2>
         <form action="{{ route('update-fanta', $fanta->id) }}" class="form-control" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
             @csrf
@@ -61,7 +61,7 @@
 
 
             <div class="offset-1 col-sm-10">
-                <button type="submit" class="btn btn-outline-warning">Add</button>
+                <button type="submit" class="btn btn-outline-warning">Save</button>
             </div>
             <br>
         </form>

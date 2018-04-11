@@ -1,12 +1,54 @@
 @extends('layouts.fanta')
 
+@section('style')
+<style>
+/*
+.inputDnD .form-control-file {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 6em;
+    outline: none;
+    visibility: hidden;
+    cursor: pointer;
+    background-color: #c61c23;
+    box-shadow: 0 0 5px solid currentColor;
+}
+.inputDnD .form-control-file:before {
+    content: attr(data-title);
+    position: absolute;
+    top: 0.5em;
+    left: 0;
+    width: 100%;
+    min-height: 6em;
+    line-height: 2em;
+    padding-top: 1.5em;
+    opacity: 1;
+    visibility: visible;
+    text-align: center;
+    border: 0.25em dashed currentColor;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow: hidden;
+}
+.inputDnD .form-control-file:hover:before {
+    border-style: solid;
+    box-shadow: inset 0px 0px 0px 0.25em currentColor;
+}
+*/
+
+.button{
+    width:150px;
+}
+</style>
+@endsection
+
 @section('content')
 <div class="container">
     <br>        
     <div class="col-12">
-
+    <a role="buttton" href="{{route('home')}}" class="btn btn-success">Home</a>
         <h2>Add a Fanta</h2>
-        <form action="{{ route('store-fanta') }}" class="form-control" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
+        <form action="{{ route('fanta.store') }}" class="form-control" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
             {{ csrf_field() }}
             <br>
             <div class="col-12">
@@ -52,21 +94,17 @@
 
             <div class="clearfix"><br></div>
 
-
             <div class="offset-1 col-sm-10">
-                <button type="submit" class="btn btn-outline-warning">Add</button>
+                <button type="submit" class="btn btn-outline-warning button">Add</button>
             </div>
             <br>
         </form>
         <div id="app"></div>
     </div>
 </div>
-</div>
 @endsection
 
 @section('scripts')
-<script src="{{ asset('js/app.js') }}"></script>
-<script src="{{ asset('node_modules/selectize/dist/js/selectize.js') }}"></script>
 
 <script>
 

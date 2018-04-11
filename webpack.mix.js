@@ -15,13 +15,12 @@ let mix = require('laravel-mix');
 // mix.styles([
 // 	], 
 // 'public/css/front.css');
-mix.js(
-	[
+
+mix.scripts([
 	'resources/assets/js/app.js',
-	'node_modules/selectize/dist/js/selectize.js',
-	],
-'public/js');
+	'node_modules/selectize/dist/js/selectize.js'],
+'public/js/app.js');
+
 mix.styles(
-   	['resources/assets/sass/app.scss',
-	'node_modules/selectize/dist/css/selectize.css',],
+   	['resources/assets/sass/app.scss', 'node_modules/selectize/dist/css/selectize.css'],
 'public/css/front.css');

@@ -24,7 +24,8 @@ class FantaController extends Controller
         $countries = Country::all()->pluck('name');
         $flavours = Flavour::all()->pluck('name');
         $tags = Tag::all()->pluck('name');
-
+        
+        $fantas = Fanta::inRandomOrder()->take(10);
         return view('fanta.index')->with(['tags' => $tags, 'countries' => $countries, 'colours' => $colours, 'flavours' => $flavours]);
     }
 
@@ -89,7 +90,8 @@ class FantaController extends Controller
         $country->fantas()->save($fanta);
         $flavour->fantas()->save($fanta);
 
-        return back()->with(['success' => 'success']);
+        return redirect(route('preview.create', $fanta));
+        // return back()->with(['success' => 'success']);
     }
 
     /**
@@ -248,7 +250,7 @@ class FantaController extends Controller
         }
         $fanta->tags()->sync($tags_ids, true);
 
-        return back()->with('status', 'Fanta updated successfully');    
+        return back()->with('status', 'Fanta updated successfully');
     }
 
     /**

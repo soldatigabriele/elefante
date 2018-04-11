@@ -11,6 +11,8 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/front.css') }}" rel="stylesheet" type="text/css"   >
+    <link href="{{ asset('css/dropzone.css') }}" rel="stylesheet" type="text/css"   >
+
     <style>
     .selectize-input>.item{
         background: #1b9dec !important;
@@ -18,7 +20,11 @@
         border-radius: 4px ;
         color: white !important;
     }
+    .carta{
+      padding:20px;
+    }
 </style>
+  @yield('style')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
@@ -26,9 +32,10 @@
 
   @yield('content')
 
-  <script src="{{ asset('js/app.js') }}"></script>
-  <script src="{{ asset('node_modules/selectize/dist/js/selectize.js') }}"></script>
 
+  <script src="{{ asset('js/app.js') }}"></script>
+  <script src="{{ asset('js/dropzone.js') }}"></script>
+  <!-- <script src="{{ base_path('node_modules/selectize/dist/js/selectize.js') }}"></script> -->
   @yield('scripts')
 
 </body>

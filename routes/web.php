@@ -22,8 +22,18 @@ Route::get('fanta/create', 'FantaController@create')->name('create-fanta')->midd
 Route::get('fanta/{fanta}', 'FantaController@show')->name('show-fanta');
 Route::get('fanta/{fanta}/edit', 'FantaController@edit')->name('edit-fanta');
 Route::put('fanta/{fanta}', 'FantaController@update')->name('update-fanta');
-Route::post('fanta', 'FantaController@store')->name('store-fanta');
+Route::post('fanta', 'FantaController@store')->name('fanta.store');
 Route::post('fanta/find', 'FantaController@find')->name('find-fanta');
+
+Route::get('fanta/{fanta}/preview/create', 'FantaController@createPreview')->name('preview.create');
+Route::get('fanta/{fanta}/sides/create', 'FantaController@createSides')->name('sides.create');
+Route::post('fanta/{fanta}/preview', 'FantaController@storePreview')->name('preview.store');
+Route::post('fanta/{fanta}/sides', 'FantaController@storeteSides')->name('sides.store');
+
+// Route::post('fanta/{fanta}/images', 'FantaController@storeImages')->name('store-images-fanta');
+
+Route::get('upload', function(){return view('fanta.images.preview-create')->with('fanta', \App\Fanta::first()); });
+
 
 
 Auth::routes();

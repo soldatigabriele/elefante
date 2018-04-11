@@ -5,13 +5,12 @@
 <div class="container">
     <br>
     <div class=" col-12">
-
+    <a role="buttton" href="{{route('home')}}" class="btn btn-success">Home</a>
         <h2>Get a Fanta!</h2>
         <form action="{{ route('find-fanta') }}" class="form-control" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
             {{ csrf_field() }}
             <br>
             <div class="col-12">
-
                 <div class="form-group col-12">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" id="all_logos" name="logo" value="all" @if(old('logo')) checked @endif checked>
@@ -68,26 +67,53 @@
 </div>
 
 @if (session()->has('fantas'))
+    
+<div class="clearfix"></div><br>
 
-    @foreach(session('fantas') as $fs)
-        @foreach($fs as $fanta)
-
-            {{ $fanta->year }}
-            {{ $fanta->country->name }}
-            {{ $fanta->flavour->name }}
-
-            - Tags:
-            @foreach($fanta->tags as $tag)
-                {{ $tag->name }}
+    <div class="offset-2 col-8">
+    <div class="card carta">
+        <div class="col-12">
+            <h4>Matches: {{ count(session('fantas')[0]) }}</h4>
+        </div>
+        <div class="clearfix"></div><br>
+        @foreach(session('fantas') as $fs)
+            @foreach($fs as $fanta)
+            <div class="row">
+                <div class="col-10">
+                    <div class="row">
+                        <div class="col">
+                            IMMAGINE
+                        </div>
+                        <div class="col-2">
+                            {{ $fanta->flavour->name }}
+                        </div>
+                        <div class="col-2">
+                            {{ $fanta->country->name }}
+                        </div>
+                        <div class="col-1">
+                            {{ $fanta->year }}
+                        </div>
+                        <div class="col">
+                            @foreach($fanta->tags as $tag)
+                                {{ $tag->name }}
+                            @endforeach
+                        </div>
+                        <div class="col">
+                            @foreach($fanta->colours as $colour)
+                                {{ $colour->name }}
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <a role="button" class="btn btn-outline-warning" href="{{ route('edit-fanta', $fanta->id) }}">Edit</a>
+                </div>
+            </div>
+            <div class="clearfix"></div><hr>
             @endforeach
-
-            - Colours:
-            @foreach($fanta->colours as $colour)
-                {{ $colour->name }}
-            @endforeach
-            <hr>
         @endforeach
-    @endforeach
+    </div>
+</div>
 @endif
 
 @endsection
