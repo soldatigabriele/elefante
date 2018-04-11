@@ -82,7 +82,7 @@
                 <div class="col-10">
                     <div class="row">
                         <div class="col">
-                            IMMAGINE
+                            <a role="button" class="btn btn-outline-warning" href="{{ route('preview.create', $fanta->id) }}">Add Prev</a>
                         </div>
                         <div class="col-2">
                             {{ $fanta->flavour->name }}

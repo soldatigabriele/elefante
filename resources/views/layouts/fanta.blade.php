@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/front.css') }}" rel="stylesheet" type="text/css"   >
-    <link href="{{ asset('css/dropzone.css') }}" rel="stylesheet" type="text/css"   >
+    <link href="/css/dropzone.css" rel="stylesheet" type="text/css"   >
 
     <style>
     .selectize-input>.item{
@@ -33,7 +33,7 @@
   @yield('content')
 
 
-  <script src="/js/app.js"></script>
+  <script src="/js/application.js"></script>
   <script src="/js/dropzone.js"></script>
   <!-- <script src="{{ base_path('node_modules/selectize/dist/js/selectize.js') }}"></script> -->
   @yield('scripts')
