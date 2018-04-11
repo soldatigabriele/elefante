@@ -102,9 +102,14 @@
         <div id="app"></div>
     </div>
 </div>
+
+<script src="/js/app.js"></script>
+<script src="/js/dropzone.js"></script>
+
 @endsection
 
 @section('scripts')
+
 
 <script>
 

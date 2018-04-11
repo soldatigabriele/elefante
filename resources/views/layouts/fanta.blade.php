@@ -33,8 +33,8 @@
   @yield('content')
 
 
-  <script src="{{ asset('js/app.js') }}"></script>
-  <script src="{{ asset('js/dropzone.js') }}"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/dropzone.js"></script>
   <!-- <script src="{{ base_path('node_modules/selectize/dist/js/selectize.js') }}"></script> -->
   @yield('scripts')
 
