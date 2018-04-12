@@ -9,6 +9,8 @@ use App\Colour;
 use App\Country;
 use App\Flavour;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ImagesController extends Controller
 {
@@ -21,7 +23,13 @@ class ImagesController extends Controller
      */
     public function createPreview(Fanta $fanta)
     {
-        return view('fanta.images.preview-create')->with(['fanta' => $fanta]);
+        $directory = storage_path('app/previews/'.$fanta->id);
+        $images = File::allFiles($directory);
+        foreach($images as $im){
+
+dump($im);
+        }
+        return view('fanta.images.preview-create')->with(['fanta' => $fanta, 'images' => $images ]);
     }
 
 
@@ -44,15 +52,13 @@ class ImagesController extends Controller
      */
     public function storePreview(Fanta $fanta, Request $request)
     {
-
+// \Log::info($fanta);
         // store the preview and redirect to create sides
-        // $image = $request->file('file');
-        // $imageName = time().$image->getClientOriginalName();
+        $image = $request->file('file');
+        $imageName = time().$image->getClientOriginalName();
+        Storage::put('images/previews/'.$fanta->id, $image, 'public');
         // $image->move(public_path('images'),$imageName);
-        // return response()->json(['success'=>$imageName]);
-        
-        return redirect(route('preview.create', $fanta));
-
+        return response()->json(['success'=>$imageName]);
     }
 
     /**
@@ -64,9 +70,18 @@ class ImagesController extends Controller
     public function storeSides(Fanta $fanta, Request $request)
     {
         $image = $request->file('file');
-        $imageName = time().$image->getClientOriginalName();
-        $image->move(public_path('images'),$imageName);
+        $imageName = $fanta->id.'/'.time().$image->getClientOriginalName();
+        Storage::put($imageName, $image, 'public');
+
+        // $image->move(public_path('images'),$imageName);
         return response()->json(['success'=>$imageName]);
+    }
+
+    public function deletePreview()
+    {
+        \Log::info('delete');
+        // remove the image
+        return response()->json(['status'=>'ok']);
     }
 
 }

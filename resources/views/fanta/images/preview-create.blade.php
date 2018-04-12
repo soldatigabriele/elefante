@@ -17,126 +17,85 @@
         <div class="clearfix"></div><br>
     <div class="col-12">
         <div class="card">
-            <h2>Add the Preview image</h2>
+            <h2>Add the preview image</h2>
 
-            <form action="{{ route('preview.store', $fanta) }}"
-                enctype="multipart/form-data" class="dropzone" id="my-dropzone">
+            <form action="{{ route('preview.store', $fanta->id) }}"
+                enctype="multipart/form-data" class="dropzone" id="myDropzone">
+            <div id="csrf">
+                @csrf
+            </div>
             </form>
-
         </div>
     </div>
 </div>
 <div id="app"></div>
+</div>
+<div id="photoCounter"></div>
+
+@foreach($images as $im)
+
+
+    <img src="{{ url($im) }}" alt="au"/>{{ url($im ) }}
+@endforeach
+
 @endsection
 
 @section('scripts')
 <script type="text/javascript">
 
-$(document).ready(function(){
-    Dropzone.options.myDropzone = {
-        paramName: 'file',
-        maxFilesize: 10, // MB
-        maxFiles: 1,
-        acceptedFiles: ".jpeg,.jpg,.png,.gif",
-        init: function() {
-            this.on("success", function(file, response) {
-                console.log("file: ")
-                console.log(file)
-                console.log("response: ")
-                console.log(response)
-                
-                var a = document.createElement('span');
-                a.className = "thumb-url btn btn-primary";
-                a.setAttribute('data-clipboard-text','{{url('/uploads')}}'+'/'+response);
-                a.innerHTML = "copy url";
-                file.previewTemplate.appendChild(a);
+var photo_counter = 0;
+Dropzone.options.myDropzone = {
+    uploadMultiple: false,
+    parallelUploads: 100,
+    maxFilesize: 12,
+    addRemoveLinks: true,
+    createImageThumbnails: true,
+    dictRemoveFile: 'Remove',
+    dictFileTooBig: 'Image is bigger than 8MB',
+
+    // The setting up of the dropzone
+    init:function() {
+
+        this.on("removedfile", function(file) {
+            $.ajax({
+                type: 'POST',
+                url: '/fanta/'+{{$fanta->id}}+'/preview/delete',
+                data: {id: file.name, _token: "{{ csrf_token() }}" },
+                dataType: 'html',
+                success: function(data){
+                    console.log('deleted successfilly');
+                    var rep = JSON.parse(data);
+                    if(rep.code == 200)
+                    {
+                        photo_counter--;
+                        $("#photoCounter").text( "(" + photo_counter + ")");
+                    }
+
+                }
             });
+
+        });
+    },
+    error: function(file, response) {
+        if($.type(response) === "string")
+            var message = response; //dropzone sends it's own error messages in string
+        else
+            var message = response.message;
+        file.previewElement.classList.add("dz-error");
+        _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            node = _ref[_i];
+            _results.push(node.textContent = message);
         }
-    };
-});
-
-    var tags = [
-    @foreach ($tags as $tag)
-    {tag: "{{$tag}}" },
-    @endforeach
-    ];
-
-    var countries = [
-    @foreach ($countries as $country)
-    {country: "{{$country}}" },
-    @endforeach
-    ];
-
-    var colours = [
-    @foreach ($colours as $colour)
-    {colour: "{{$colour}}" },
-    @endforeach
-    ];
-
-    var flavours = [
-    @foreach ($flavours as $flavour)
-    {flavour: "{{$flavour}}" },
-    @endforeach
-    ];
-
-    $( document ).ready(function() {
-
-        $('#tags').selectize({
-            delimiter: ',',
-            persist: false,
-            valueField: 'tag',
-            labelField: 'tag',
-            searchField: 'tag',
-            options: tags,
-            create: function(input) {
-                return {
-                    tag: input
-                }
-            }
-        });
-        $('#flavours').selectize({
-            delimiter: ',',
-            persist: false,
-            valueField: 'flavour',
-            labelField: 'flavour',
-            searchField: 'flavour',
-            maxItems: 1,
-            options: flavours,
-            create: function(input) {
-                return {
-                    flavour: input
-                }
-            }
-        });
-        $('#country').selectize({
-            delimiter: ',',
-            persist: false,
-            valueField: 'country',
-            labelField: 'country',
-            searchField: 'country',
-            maxItems: 1,
-            options: countries,
-            create: function(input) {
-                return {
-                    country: input
-                }
-            }
-        });
-        $('#colours').selectize({
-            delimiter: ',',
-            persist: false,
-            valueField: 'colour',
-            labelField: 'colour',
-            searchField: 'colour',
-            options: colours,
-            create: function(input) {
-                return {
-                    colour: input
-                }
-            }
-        });
-    });
-
+        return _results;
+    },
+    success: function(file,done) {
+        photo_counter++;
+        $("#photoCounter").text( "(" + photo_counter + ")");
+    }
+}
+  
 </script>
 @endsection
 

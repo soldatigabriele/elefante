@@ -28,6 +28,7 @@ Route::post('fanta/find', 'FantaController@find')->name('find-fanta');
 Route::get('fanta/{fanta}/preview/create', 'ImagesController@createPreview')->name('preview.create');
 Route::get('fanta/{fanta}/sides/create', 'ImagesController@createSides')->name('sides.create');
 Route::post('fanta/{fanta}/preview', 'ImagesController@storePreview')->name('preview.store');
+Route::post('fanta/{fanta}/preview/delete', 'ImagesController@deletePreview')->name('preview.delete');
 Route::post('fanta/{fanta}/sides', 'ImagesController@storeteSides')->name('sides.store');
 
 // Route::post('fanta/{fanta}/images', 'FantaController@storeImages')->name('store-images-fanta');
