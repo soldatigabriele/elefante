@@ -9,8 +9,9 @@ use App\Image;
 use App\Colour;
 use App\Country;
 use App\Flavour;
-use Illuminate\Http\File;
+// use Illuminate\Http\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Im;
 
@@ -31,9 +32,8 @@ class ImagesController extends Controller
         // foreach($images as $image){
         //     $paths[] = explode('/', $image);
         // }
-        $images = $fanta->images;
         $preview = $fanta->preview;
-        return view('fanta.images.preview-create')->with(['fanta' => $fanta, 'images' => $images, 'preview' => $preview ]);
+        return view('fanta.images.preview-create')->with(['fanta' => $fanta, 'preview' => $preview ]);
     }
 
 
@@ -60,17 +60,20 @@ class ImagesController extends Controller
         $preview = $request->file('file');
 
         $preview = Im::make($preview);
-        $preview->resize(300, null, function ($constraint) {
+        $preview->resize(400, null, function ($constraint) {
             $constraint->aspectRatio();
         });
-        $preview->crop(250,250);
+
+        // $preview->crop(250,250);
 
         $ext = $request->file('file')->getClientOriginalExtension();
-        $name = md5($preview->__toString()).'.'.$ext;
+        $name = 'P_'.md5(str_random(10)).'.'.$ext;
         $fanta->preview = $name;
         $fanta->save();
-        
-        Storage::put('public/images/'.$fanta->id.'/'.$name, $preview->stream());
+        $save_path = storage_path('app/public/images/'.$fanta->id.'/');
+        File::isDirectory($save_path) or File::makeDirectory($save_path, 0777, true, true);
+
+        $preview->save($save_path.'/'.$name, 100);
 
         return response()->json(['status'=>'success']);
     }
@@ -84,6 +87,8 @@ class ImagesController extends Controller
      */
     public function storeSides(Fanta $fanta, Request $request)
     {
+        $save_path = storage_path('app/public/images/'.$fanta->id.'/');
+        File::isDirectory($save_path) or File::makeDirectory($save_path, 0777, true, true);
 
         // store the full_size
         $image = $request->file('file');
@@ -92,30 +97,29 @@ class ImagesController extends Controller
         
         $ext = $request->file('file')->getClientOriginalExtension();
         $im->original_name = $request->file('file')->getClientOriginalName().'.'.$ext;
-        $im->size = $request->file('file')->getClientSize();
-        $name = hash('md5', time().$request->file('file')->getClientOriginalName()).'.'.$ext;
-        $im->full_size = $name;
+        $im->original_size = $request->file('file')->getClientSize();
+        
+        $full_size_name = 'F_'.md5(str_random(10)).'.'.$ext;
+        $im->full_size = $full_size_name;
+        // save the compressed image
+        $normal_size_name = 'N_'.md5(str_random(10)).'.'.$ext;
+        $im->normal_size = $normal_size_name;
         $im->save();
         
-        Storage::putFileAs('public/images/'.$fanta->id, $image, $name);
+        // store full size
+        $full_size = Im::make($image);
+        $full_size->save($save_path.'/'.$full_size_name, 90);
 
-        // store the side
-        $side = Im::make($image)->resize(200, 200)->encode('jpg');
-        $name = md5($side->__toString()).'.'.$ext;
-        $im->path = $name;
-        $im->save();
-        Storage::put('public/images/'.$fanta->id.'/'.$name, $side->stream());
+        // store normal size
+        $normal_size = Im::make($image);
+        $normal_size->resize(400, null, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+        $normal_size->save($save_path.'/'.$normal_size_name, 60);        
+        
 
         return response()->json(['status'=>'success']);
     }
-
-    //     $image = $request->file('file');
-    //     $imageName = $fanta->id.'/'.time().$image->getClientOriginalName();
-    //     Storage::put($imageName, $image, 'public');
-
-    //     // $image->move(public_path('images'),$imageName);
-    //     return response()->json(['success'=>$imageName]);
-    // }
 
     public function deletePreview()
     {
@@ -123,5 +127,11 @@ class ImagesController extends Controller
         // remove the image
         return response()->json(['status'=>'ok']);
     }
+
+    public function update(Fanta $fanta)
+    {
+        return view('fanta.images.update')
+    }
+
 
 }

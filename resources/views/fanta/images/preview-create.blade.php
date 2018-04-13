@@ -47,18 +47,18 @@
 <div id="photoCounter"></div>
 
 
+<br>
 
-@if(isset($preview))
-    pre
-        <img src="/images/1/{{$fanta->preview}}">
-    pre
+@if($fanta->preview)
+<div>
+    <img src="/images/{{$fanta->id}}/{{$fanta->preview}}" width="200px">
+</div>
 @endif
+<hr>
 
-@if(isset($images))
-    @foreach($images as $im)
-        <img src="/images/1/{{$im->path}}">
-    @endforeach
-@endif
+@foreach($fanta->images as $im)
+    <img src="/images/{{$fanta->id}}/{{$im->normal_size}}" width="200px">
+@endforeach
 
 @endsection
 
@@ -78,7 +78,7 @@ Dropzone.options.preview = {
     uploadMultiple: false,
     parallelUploads: 10,
     maxFilesize: 12,
-    maxFiles: 1,
+    maxFiles: 10,
     dictFileTooBig: 'Image is bigger than 8MB',
 
     // The setting up of the dropzone

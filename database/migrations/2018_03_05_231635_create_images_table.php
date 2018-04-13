@@ -17,9 +17,9 @@ class CreateImagesTable extends Migration
             $table->increments('id');
             $table->string('fanta_id');
             $table->string('original_name')->nullable();
-            $table->string('path')->nullable();
+            $table->string('normal_size')->nullable();
             $table->string('full_size')->nullable();
-            $table->string('size')->nullable();
+            $table->string('original_size')->nullable();
             $table->timestamps();
         });
     }
