@@ -20,7 +20,21 @@
             <h2>Add the preview image</h2>
 
             <form action="{{ route('preview.store', $fanta->id) }}"
-                enctype="multipart/form-data" class="dropzone" id="myDropzone">
+                enctype="multipart/form-data" class="dropzone" id="preview">
+            <div id="csrf">
+                @csrf
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="clearfix"></div><br>
+    <div class="col-12">
+        <div class="card">
+            <h2>Add the Sides image</h2>
+            <form action="{{ route('sides.store', $fanta->id) }}"
+                enctype="multipart/form-data" class="dropzone" id="sides">
             <div id="csrf">
                 @csrf
             </div>
@@ -32,25 +46,39 @@
 </div>
 <div id="photoCounter"></div>
 
-@foreach($images as $im)
 
 
-    <img src="{{ url($im) }}" alt="au"/>{{ url($im ) }}
-@endforeach
+@if(isset($preview))
+    pre
+        <img src="/images/1/{{$fanta->preview}}">
+    pre
+@endif
+
+@if(isset($images))
+    @foreach($images as $im)
+        <img src="/images/1/{{$im->path}}">
+    @endforeach
+@endif
 
 @endsection
 
 @section('scripts')
 <script type="text/javascript">
 
-var photo_counter = 0;
-Dropzone.options.myDropzone = {
+Dropzone.options.sides = {
     uploadMultiple: false,
-    parallelUploads: 100,
+    parallelUploads: 10,
     maxFilesize: 12,
-    addRemoveLinks: true,
-    createImageThumbnails: true,
-    dictRemoveFile: 'Remove',
+    maxFiles: 10,
+    dictFileTooBig: 'Image is bigger than 8MB'
+}
+
+var photo_counter = 0;
+Dropzone.options.preview = {
+    uploadMultiple: false,
+    parallelUploads: 10,
+    maxFilesize: 12,
+    maxFiles: 1,
     dictFileTooBig: 'Image is bigger than 8MB',
 
     // The setting up of the dropzone

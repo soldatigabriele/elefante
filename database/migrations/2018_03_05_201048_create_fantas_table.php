@@ -19,6 +19,7 @@ class CreateFantasTable extends Migration
             $table->integer('country_id')->nullable();
             $table->integer('flavour_id')->nullable();
             $table->integer('logo_id')->nullable();
+            $table->string('preview')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

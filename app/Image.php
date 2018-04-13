@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
-    protected $guarded = [];
+    protected $fillable = ['fanta_id', 'original_name', 'path', 'full_size'];
     
     public function fanta(){
-      return $this->belongsTo('App\Fanta');
+  		return $this->belongsTo('App\Fanta');
     }
 
 
