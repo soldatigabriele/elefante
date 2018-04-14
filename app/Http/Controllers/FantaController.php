@@ -73,8 +73,8 @@ class FantaController extends Controller
             $tag = Tag::where('name', $t)->first();
             if(!$tag){
                 $tag = Tag::create(['name' => $t]);
-                $fanta->tags()->sync($tag, false);
             }
+            $fanta->tags()->sync($tag, false);
         }
 
         $country = Country::where('name', $request->country)->first();
@@ -90,7 +90,7 @@ class FantaController extends Controller
         $country->fantas()->save($fanta);
         $flavour->fantas()->save($fanta);
 
-        return redirect(route('preview.create', $fanta));
+        return redirect(route('images.create', $fanta));
         // return back()->with(['success' => 'success']);
     }
 

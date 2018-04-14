@@ -24,28 +24,9 @@ class ImagesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function createPreview(Fanta $fanta)
+    public function create(Fanta $fanta)
     {
-        // $images = Storage::allFiles('public/images/'.$fanta->id);
-        // $paths = [];
-        // $images = Storage::files('public/images/'.$fanta->id)
-        // foreach($images as $image){
-        //     $paths[] = explode('/', $image);
-        // }
-        $preview = $fanta->preview;
-        return view('fanta.images.preview-create')->with(['fanta' => $fanta, 'preview' => $preview ]);
-    }
-
-
-    /**
-     * Create the form to upload the images.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function createSides(Fanta $fanta)
-    {
-        return view('fanta.images.sides-create')->with(['fanta' => $fanta]);
+        return view('fanta.images.create')->with(['fanta' => $fanta ]);
     }
 
     /**

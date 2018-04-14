@@ -26,32 +26,36 @@
     <div class="clearfix"></div><br>
 
     @if($fanta->preview)
+    <h4>Preview</h4>
     <div class="card" style="width:300px;text-align: center;padding:10px;">
-        <h4>Preview</h4>
         <div style="">
             <img src="/images/{{$fanta->id}}/{{$fanta->preview}}" width="200px">
             <div class="clearfix"></div><br>
-            <a role="button" class="btn btn-outline-danger btn-sm" href="{{ route('preview.destroy', $fanta) }}"> Destroy preview</a>
+            <a role="button" class="btn btn-outline-danger btn-sm" href="{{ route('preview.destroy', $fanta) }}"> Delete preview</a>
         </div>
     </div>
     @endif
     <br>
     @if($fanta->images->count())
-    <div class="card" style="padding:10px;margin:6px;text-align: center;">
+    <div class="" style="padding:10px;margin:6px;text-align:center;">
         <h4>Sides</h4>
         <div class="row">
-            
         @foreach($fanta->images as $image)
-        <div class="col" style="text-align: center;margin-bottom: 10px">
+        <div class="col" style="max-width:280px; padding:10px">
+            <div class="card">
+                
+            <div class="card-body" style="text-align:center;margin-bottom:10px;">
                 <img src="/images/{{$fanta->id}}/{{$image->normal_size}}" width="200px">
                 <div class="clearfix"></div><br>
-                <a role="button" class="btn btn-outline-danger btn-sm" href="{{ route('side.destroy', [$fanta, $image]) }}"> Destroy this image</a>
+                <a role="button" class="btn btn-outline-danger btn-sm" href="{{ route('side.destroy', [$fanta, $image]) }}"> Delete this image</a>
+            </div>
+            </div>
         </div>
         @endforeach
         </div>
     </div>
     <hr>
-    <a role="button" class="btn btn-danger" href="{{ route('sides.destroy', $fanta) }}"> Destroy all sides</a>
-    <a role="button" class="btn btn-danger" href="{{ route('images.destroy', $fanta) }}"> Destroy all images</a>
+    <a role="button" class="btn btn-danger" href="{{ route('sides.destroy', $fanta) }}"> Delete all sides</a>
+    <a role="button" class="btn btn-danger" href="{{ route('images.destroy', $fanta) }}"> Delete all images</a>
     @endif
 </div>

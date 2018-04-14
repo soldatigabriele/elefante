@@ -82,7 +82,9 @@
                 <div class="col-10">
                     <div class="row">
                         <div class="col">
-                            <a role="button" class="btn btn-outline-warning" href="{{ route('preview.create', $fanta->id) }}">Add Prev</a>
+                        @if($fanta->preview)
+                            <img src="/images/{{$fanta->id}}/{{$fanta->preview}}" width="100px">
+                        @endif
                         </div>
                         <div class="col-2">
                             {{ $fanta->flavour->name }}
