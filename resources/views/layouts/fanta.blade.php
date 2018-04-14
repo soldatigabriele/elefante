@@ -23,7 +23,7 @@
     .carta{
       padding:20px;
     }
-</style>
+    </style>
   @yield('style')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
