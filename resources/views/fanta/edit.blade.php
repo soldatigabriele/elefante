@@ -67,13 +67,19 @@
         </form>
         <div id="app"></div>
     </div>
+    <div class="clearfix"></div><br>
+    <div class="col-12">
+        <div class="card">
+            @include('fanta.partials.images-upload')
+        </div>
+    </div>
 </div>
-</div>
+
+<br><br>
 
 @endsection
 
 @section('scripts')
-<script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('node_modules/selectize/dist/js/selectize.js') }}"></script>
 
 <script>

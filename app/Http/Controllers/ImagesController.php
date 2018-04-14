@@ -89,7 +89,6 @@ class ImagesController extends Controller
     {
         $save_path = storage_path('app/public/images/'.$fanta->id.'/');
         File::isDirectory($save_path) or File::makeDirectory($save_path, 0777, true, true);
-
         // store the full_size
         $image = $request->file('file');
         $im = new Image;
@@ -128,10 +127,53 @@ class ImagesController extends Controller
         return response()->json(['status'=>'ok']);
     }
 
-    public function update(Fanta $fanta)
+    // public function update(Fanta $fanta)
+    // {
+    //     return view('fanta.images.update');
+    // }
+
+    public function destroyPreview(Fanta $fanta)
     {
-        return view('fanta.images.update')
+        $image = storage_path('app/public/images/'.$fanta->id.'/'.$fanta->preview);
+        File::delete($image);
+        $fanta->preview = null;
+        $fanta->save();
+        return back()->with('status', 'success');
     }
 
+    public function destroySides(Fanta $fanta)
+    {
+        foreach($fanta->images as $image){
+            $fullSize = storage_path('app/public/images/'.$fanta->id.'/'.$image->full_size);
+            File::delete($fullSize);
+            $normalSize = storage_path('app/public/images/'.$fanta->id.'/'.$image->normal_size);
+            File::delete($normalSize);
+            $image->delete();
+        }
+        return back()->with('status', 'success');
+    } 
+    
+    public function destroySide(Fanta $fanta, Image $image)
+    {
+        $fullSize = storage_path('app/public/images/'.$fanta->id.'/'.$image->full_size);
+        File::delete($fullSize);
+        $normalSize = storage_path('app/public/images/'.$fanta->id.'/'.$image->normal_size);
+        File::delete($normalSize);
+        $image->delete();
+        return back()->with('status', 'success');
+    } 
+    
+    public function destroyImages(Fanta $fanta)
+    {
+        $fanta->preview = null;
+        $fanta->save();
+        foreach($fanta->images as $image){
+            $image->delete();
+        }
+
+        $to_delete_path = storage_path('app/public/images/'.$fanta->id);
+        $success = File::deleteDirectory($to_delete_path);    
+        return back()->with('status', $success);
+    }
 
 }
