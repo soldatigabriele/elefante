@@ -40,14 +40,17 @@
     @csrf
     <br>
     <div class="col-12">
-        <div class="form-group col-12">
-            <div class="cc-selector"> 
-            @foreach($logos as $logo)
-                <input type="radio" id="{{ $logo->name }}" name="logo" value="{{ $logo->id }}" @isset($fanta->logo) @if($fanta->logo_id == $logo->id) checked @endif @else @if(2 == $logo->id) checked @endif @endif>
-                <label class="drinkcard-cc {{$logo->name}}" for="{{ $logo->name }}" style="background-image:url({{ asset('images/logos/'.$logo->path ) }});"></label>
-            @endforeach
+            <div class="row">
+                <div class="col-sm-2 col">Logo</div>
+                <div class="col-sm-10 col cc-selector">
+                @foreach($logos as $logo)
+                    <input type="radio" id="{{ $logo->name }}" name="logo" value="{{ $logo->id }}" @isset($fanta->logo) @if($fanta->logo_id == $logo->id) checked @endif @else @if(2 == $logo->id) checked @endif @endif>
+                    <label class="drinkcard-cc {{$logo->name}}" for="{{ $logo->name }}" style="background-image:url({{ asset('images/logos/'.$logo->path ) }});"></label>
+                @endforeach
+                <input type="radio" name="logo" value="all" id="all">
+                <label class="drinkcard-cc {{$logo->name}}" for="all" style="width:70px;height:70px;background:;"></label>
+                </div> 
             </div>
-        </div>
         <div class="form-group row">
             <label for="flavour" class="col-sm-2 col-form-label">Flavour</label>
             <div class="col-sm-10">

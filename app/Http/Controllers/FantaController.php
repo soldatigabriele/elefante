@@ -65,7 +65,8 @@ class FantaController extends Controller
             'year' => $request->year,
         ]);
 
-        $fanta->logo_id = $request->logo;
+        $fanta->logo_id = ($request->logo === 'all')? 99 : $request->logo;
+        
         $fanta->capacity = $request->capacity;
 
         $colours = explode(',', $request->colours);
@@ -139,6 +140,7 @@ class FantaController extends Controller
                 $fantas = $fantas->intersect($fantas_logo);
             }
         }
+
         // YEAR
         $fantas_year = Fanta::where('year', $request->year)->get();
         if($fantas_year->count()){
