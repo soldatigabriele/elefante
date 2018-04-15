@@ -54,3 +54,7 @@
         <button type="submit" class="btn btn-outline-warning">{{ $submitName }}</button>
     </div>
     <br>
+
+@include('scripts.decimals')
+
+

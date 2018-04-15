@@ -31,8 +31,9 @@
 <br><br>
 
 @include('scripts.selectize')
-@include('scripts.decimals')
-@include('scripts.dropzone')
 
 @endsection
 
+<?php
+phpinfo();
+?>

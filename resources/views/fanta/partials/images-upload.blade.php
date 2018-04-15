@@ -60,3 +60,8 @@
     <a role="button" class="btn btn-danger" href="{{ route('images.destroy', $fanta) }}"> Delete all images</a>
     @endif
 </div>
+
+<!-- Include the necessary scripts -->
+@include('scripts.dropzone')
+
+
