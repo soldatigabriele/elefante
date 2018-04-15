@@ -18,7 +18,7 @@
                 <div class="col" style="max-width:280px; padding:10px">
                     <div class="card">
                         <div class="card-body" style="text-align:center;margin-bottom:10px;">
-                            <a role="" class="" href="{{ route('show-fanta', $fanta) }}"><img src="storage/images/{{$fanta->id}}/{{$fanta->preview}}" width="100px"></a>
+                            <a role="" class="" href="{{ route('show-fanta', $fanta) }}"><img src="{{ asset('storage/images/'.$fanta->id.'/'.$fanta->preview) }}" width="100px"></a>
                             <div class="clearfix"></div><br>
                             <a role="button" class="btn btn-outline-success btn-sm" href="{{ route('show-fanta', $fanta) }}">Open</a>
                             @auth<a role="button" class="btn btn-outline-warning btn-sm" href="{{ route('edit-fanta', $fanta) }}">Edit</a>@endauth
