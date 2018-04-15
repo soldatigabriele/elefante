@@ -15,6 +15,7 @@
     
     <!-- Scripts -->
     <script src="/js/application.js"></script>
+    <script src="/js/dropzone.js"></script>
     
     <style>
     .selectize-input>.item{
@@ -35,7 +36,6 @@
 
   @yield('content')
 
-  <script src="/js/dropzone.js"></script>
 
   @yield('scripts')
 
