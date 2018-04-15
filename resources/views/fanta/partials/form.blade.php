@@ -1,7 +1,6 @@
     @section('style')
 <style>
     .cc-selector input{
-        margin:0;padding:0;
         -webkit-appearance:none;
            -moz-appearance:none;
                 appearance:none;
@@ -16,7 +15,6 @@
         cursor:pointer;
         background-size:contain;
         background-repeat:no-repeat;
-        display:inline-block;
         width:100px;height:70px;
         -webkit-transition: all 100ms ease-in;
            -moz-transition: all 100ms ease-in;
@@ -33,6 +31,9 @@
 
     /* Extras */
     p{margin-bottom:.3em;}
+    .button{
+    width:150px;
+}
 </style>
     @endsection
 
@@ -40,15 +41,12 @@
     <br>
     <div class="col-12">
         <div class="form-group col-12">
-            
-
+            <div class="cc-selector"> 
             @foreach($logos as $logo)
-
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="{{ $logo->name }}" name="logo" value="{{ $logo->id }}" @isset($fanta->logo) @if($fanta->logo->id == $logo->id) checked @endif @endif>
-                <label class="form-check-label" for="{{ $logo->name }}">{{ $logo->name }}</label>
-            </div>
+                <input type="radio" id="{{ $logo->name }}" name="logo" value="{{ $logo->id }}" @isset($fanta->logo) @if($fanta->logo->id == $logo->id) checked @endif @endif @if(2 == $logo->id) checked @endif>
+                <label class="drinkcard-cc {{$logo->name}}" for="{{ $logo->name }}" style="background-image:url({{ asset('images/logos/'.$logo->path ) }});"></label>
             @endforeach
+            </div>
         </div>
         <div class="form-group row">
             <label for="flavour" class="col-sm-2 col-form-label">Flavour</label>

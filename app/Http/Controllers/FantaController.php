@@ -204,7 +204,8 @@ class FantaController extends Controller
             $fantas = $fantas->intersect($fantas_capacity);
         }
 
-        return redirect()->back()->with('fantas', [$fantas])->withInput();
+        return view('fanta.results')->with(['fantas' => $fantas]);
+        // return redirect()->back()->with('fantas', [$fantas])->withInput();
         // return view('fanta.index')->with('fantas', $fantas)->withInput($request->all());
     }
 
@@ -240,6 +241,8 @@ class FantaController extends Controller
         $flavour = Flavour::where('name', $request->flavour)->first();
         $fanta->country_id = $country->id;
         $fanta->logo_id = $request->logo;
+        $fanta->capacity = $request->capacity;
+        $fanta->year = $request->year;
         $fanta->flavour_id = $flavour->id;
         $fanta->save();
 

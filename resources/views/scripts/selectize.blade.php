@@ -1,4 +1,20 @@
 <script type="text/javascript">
+
+
+    @isset($fanta)
+        let old_tags = []
+        @foreach ($fanta->tags as $key => $tag)
+            old_tags.push("{{$tag->name}}")
+        @endforeach
+
+        let old_colours = []
+        @foreach ($fanta->colours as $key => $colour)
+            old_colours.push("{{$colour->name}}")
+        @endforeach
+        $('#tags').val(old_tags)
+        $('#colours').val(old_colours)
+    @endif
+
     var tags = [
     @foreach ($tags as $tag)
     {tag: "{{$tag}}" },

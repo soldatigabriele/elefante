@@ -1,13 +1,5 @@
 @extends('layouts.fanta')
 
-@section('style')
-<style>
-.button{
-    width:150px;
-}
-</style>
-@endsection
-
 @section('content')
 <div class="container">
     <br>        
