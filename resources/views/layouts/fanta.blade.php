@@ -13,12 +13,25 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/front.css') }}" rel="stylesheet" type="text/css"   >
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
     <link href="/css/dropzone.css" rel="stylesheet" type="text/css"   >
     
     <!-- Scripts -->
     <script src="/js/application.js"></script>
     <script src="/js/dropzone.js"></script>
     
+=======
+=======
+>>>>>>> parent of 9187602... fixed js and css
+    <link href="{{ asset('css/dropzone.css') }}" rel="stylesheet" type="text/css"   >
+
+>>>>>>> parent of 9187602... fixed js and css
+=======
+    <link href="{{ asset('css/dropzone.css') }}" rel="stylesheet" type="text/css"   >
+
+>>>>>>> parent of 9187602... fixed js and css
     <style>
     .selectize-input>.item{
         background: #1b9dec !important;
@@ -39,6 +52,18 @@
   @yield('content')
 
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> parent of 9187602... fixed js and css
+=======
+>>>>>>> parent of 9187602... fixed js and css
+  <script src="/js/app.js"></script>
+  <script src="/js/dropzone.js"></script>
+  <!-- <script src="{{ base_path('node_modules/selectize/dist/js/selectize.js') }}"></script> -->
+>>>>>>> parent of 9187602... fixed js and css
   @yield('scripts')
 
 
