@@ -32,8 +32,8 @@
     /* Extras */
     p{margin-bottom:.3em;}
     .button{
-    width:150px;
-}
+        width:150px;
+    }
 </style>
     @endsection
 
