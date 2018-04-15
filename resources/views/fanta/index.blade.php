@@ -23,6 +23,7 @@
         <div class="row">
         @foreach(session('fantas') as $fs)
             @foreach($fs as $fanta)
+<<<<<<< HEAD
                 @if($fanta->preview)
                 <div class="col" style="max-width:280px; padding:10px">
                     <div class="card">
@@ -30,6 +31,32 @@
                             <img src="/images/{{$fanta->id}}/{{$fanta->preview}}" width="100px">
                             <div class="clearfix"></div><br>
                             <a role="button" class="btn btn-outline-warning btn-sm" href="{{ route('edit-fanta', $fanta) }}">{{ $fanta->flavour->name }}</a>
+=======
+            <div class="row">
+                <div class="col-10">
+                    <div class="row">
+                        <div class="col">
+                            IMMAGINE
+                        </div>
+                        <div class="col-2">
+                            {{ $fanta->flavour->name }}
+                        </div>
+                        <div class="col-2">
+                            {{ $fanta->country->name }}
+                        </div>
+                        <div class="col-1">
+                            {{ $fanta->year }}
+                        </div>
+                        <div class="col">
+                            @foreach($fanta->tags as $tag)
+                                {{ $tag->name }}
+                            @endforeach
+                        </div>
+                        <div class="col">
+                            @foreach($fanta->colours as $colour)
+                                {{ $colour->name }}
+                            @endforeach
+>>>>>>> parent of 9187602... fixed js and css
                         </div>
                     </div>
                 </div>

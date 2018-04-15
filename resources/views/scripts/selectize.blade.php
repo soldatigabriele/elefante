@@ -91,6 +91,7 @@
         labelField: 'colour',
         searchField: 'colour',
         options: colours,
+        items: ['Yellow', 'Red'],
         create: function(input) {
             return {
                 colour: input

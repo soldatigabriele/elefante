@@ -240,6 +240,8 @@ class FantaController extends Controller
         $flavour = Flavour::where('name', $request->flavour)->first();
         $fanta->country_id = $country->id;
         $fanta->logo_id = $request->logo;
+        $fanta->capacity = $request->capacity;
+        $fanta->year = $request->year;
         $fanta->flavour_id = $flavour->id;
         $fanta->save();
 

@@ -25,10 +25,15 @@
     </div>
 </div>
 
+<<<<<<< HEAD
 
 
 @include('scripts.selectize')
 @include('scripts.decimals')
+=======
+<script src="/js/app.js"></script>
+<script src="/js/dropzone.js"></script>
+>>>>>>> parent of 9187602... fixed js and css
 
 @endsection
 
