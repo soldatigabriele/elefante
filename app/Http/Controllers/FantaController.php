@@ -216,7 +216,7 @@ class FantaController extends Controller
      */
     public function edit(Fanta $fanta)
     {
-         $colours = Colour::all()->pluck('name');
+        $colours = Colour::all()->pluck('name');
         $countries = Country::all()->pluck('name');
         $capacities = Fanta::get()->unique('capacity')->pluck('capacity');
         $flavours = Flavour::all()->pluck('name');
@@ -256,8 +256,8 @@ class FantaController extends Controller
                 }
                 $colours_ids[] = $colour->id;
             }
-        }
         $fanta->colours()->sync($colours_ids, true);
+        }
 
         $tags = explode(',', $request->tags);
         if($tags[0]){
@@ -269,8 +269,8 @@ class FantaController extends Controller
                 }
                 $tags_ids[] = $tag->id;
             }
-        }
         $fanta->tags()->sync($tags_ids, true);
+        }
 
         return back()->with('status', 'Fanta updated successfully');
     }

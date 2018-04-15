@@ -1,8 +1,49 @@
+    @section('style')
+<style>
+    .cc-selector input{
+        margin:0;padding:0;
+        -webkit-appearance:none;
+           -moz-appearance:none;
+                appearance:none;
+    }
+    .cc-selector input:active +.drinkcard-cc{opacity: .9;}
+    .cc-selector input:checked +.drinkcard-cc{
+        -webkit-filter: none;
+           -moz-filter: none;
+                filter: none;
+    }
+    .drinkcard-cc{
+        cursor:pointer;
+        background-size:contain;
+        background-repeat:no-repeat;
+        display:inline-block;
+        width:100px;height:70px;
+        -webkit-transition: all 100ms ease-in;
+           -moz-transition: all 100ms ease-in;
+                transition: all 100ms ease-in;
+        -webkit-filter: brightness(1.8) grayscale(1) opacity(.7);
+           -moz-filter: brightness(1.8) grayscale(1) opacity(.7);
+                filter: brightness(1.8) grayscale(1) opacity(.7);
+    }
+    .drinkcard-cc:hover{
+        -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
+           -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
+                filter: brightness(1.2) grayscale(.5) opacity(.9);
+    }
+
+    /* Extras */
+    p{margin-bottom:.3em;}
+</style>
+    @endsection
+
     @csrf
     <br>
     <div class="col-12">
         <div class="form-group col-12">
+            
+
             @foreach($logos as $logo)
+
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" id="{{ $logo->name }}" name="logo" value="{{ $logo->id }}" @isset($fanta->logo) @if($fanta->logo->id == $logo->id) checked @endif @endif>
                 <label class="form-check-label" for="{{ $logo->name }}">{{ $logo->name }}</label>
@@ -24,7 +65,7 @@
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Capacity</label>
             <div class="col-sm-10">
-                <input type="integer" class="decimals" id="capacity" placeholder="Capacity in ml. Es: 350" value="{{ old('capacity') }}" name="capacity">
+                <input type="integer" class="decimals" id="capacity" placeholder="Capacity in ml. Es: 350" value="@isset($fanta){{ $fanta->capacity }}@endif" name="capacity">
             </div>
         </div>
         <div class="form-group row">
@@ -32,13 +73,13 @@
             <div class="col-sm-10">
                 <input type="text" class="" id="country" placeholder="Country" value="@isset($fanta){{ $fanta->country->name }}@endif" name="country">
             </div>
-        </div>  
+        </div>
         <div class="form-group row">
             <label for="colours" class="col-sm-2 col-form-label">Colour</label>
             <div class="col-sm-10">
                 <input type="text" class="" id="colours" placeholder="Colours" value="" name="colours">
             </div>
-        </div>                                
+        </div>
         <div class="form-group row">
             <label for="tags" class="col-sm-2 col-form-label">Tags</label>
             <div class="col-sm-10">
