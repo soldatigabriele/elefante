@@ -59,8 +59,7 @@
 
 <div class="flex-center position-ref full-height">
     <div class="content">
-
-        <img src="{{ asset('fanta.jpg') }}" alt="" width="400px">
+        <img src="{{ asset('storage/fanta.jpg') }}" alt="" width="400px">
         <div class="title m-b-md">
             E le Fante?
         </div>
