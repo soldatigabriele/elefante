@@ -54,7 +54,7 @@
     <div>
 </div>
 
-@include('scripts.dropzone')
+
 
 @endsection
 

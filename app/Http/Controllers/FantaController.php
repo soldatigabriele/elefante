@@ -9,6 +9,7 @@ use App\Colour;
 use App\Country;
 use App\Flavour;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class FantaController extends Controller
 {
@@ -22,11 +23,16 @@ class FantaController extends Controller
 
         $colours = Colour::all()->pluck('name');
         $countries = Country::all()->pluck('name');
+        $capacities = Fanta::get()->unique('capacity')->pluck('capacity');
         $flavours = Flavour::all()->pluck('name');
         $tags = Tag::all()->pluck('name');
         
-        $fantas = Fanta::inRandomOrder()->take(10);
-        return view('fanta.index')->with(['tags' => $tags, 'countries' => $countries, 'colours' => $colours, 'flavours' => $flavours]);
+        // Show some fantas by default
+        // $fantas = Fanta::inRandomOrder()->take(10)->get();
+        // Session::put(['fantas'=>$fantas]);
+
+        return view('fanta.index')->with(['tags' => $tags, 'capacities'
+         => $capacities, 'countries' => $countries, 'colours' => $colours, 'flavours' => $flavours]);
     }
 
     /**
@@ -38,10 +44,12 @@ class FantaController extends Controller
     {
         $colours = Colour::all()->pluck('name');
         $countries = Country::all()->pluck('name');
+        $capacities = Fanta::get()->unique('capacity')->pluck('capacity');
         $flavours = Flavour::all()->pluck('name');
         $tags = Tag::all()->pluck('name');
 
-        return view('fanta.create')->with(['tags' => $tags, 'countries' => $countries, 'colours' => $colours, 'flavours' => $flavours]);
+        return view('fanta.create')->with(['tags' => $tags, 'capacities'
+         => $capacities, 'countries' => $countries, 'colours' => $colours, 'flavours' => $flavours]);
     }
 
     /**
@@ -190,6 +198,12 @@ class FantaController extends Controller
             }
         }
 
+        // CAPACITY
+        $fantas_capacity = Fanta::where('capacity', $request->capacity)->get();
+        if($fantas_capacity->count()){
+            $fantas = $fantas->intersect($fantas_capacity);
+        }
+
         return redirect()->back()->with('fantas', [$fantas])->withInput();
         // return view('fanta.index')->with('fantas', $fantas)->withInput($request->all());
     }
@@ -202,7 +216,15 @@ class FantaController extends Controller
      */
     public function edit(Fanta $fanta)
     {
-        return view('fanta.edit')->with(['fanta' => $fanta]);
+         $colours = Colour::all()->pluck('name');
+        $countries = Country::all()->pluck('name');
+        $capacities = Fanta::get()->unique('capacity')->pluck('capacity');
+        $flavours = Flavour::all()->pluck('name');
+        $tags = Tag::all()->pluck('name');
+
+        return view('fanta.edit')->with(['fanta' => $fanta, 'tags' => $tags, 'capacities'
+         => $capacities, 'countries' => $countries, 'colours' => $colours, 'flavours' => $flavours]);
+        // return view('fanta.edit')->with(['fanta' => $fanta]);
     }
 
     /**

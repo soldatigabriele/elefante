@@ -19,6 +19,7 @@ use Faker\Generator as Faker;
 $factory->define(App\Fanta::class, function (Faker $faker) {
     return [
 	'year' => random_int(2000, 2020),
+	'capacity' => random_int(28, 35)*10,
 	'country_id' => Country::inRandomOrder()->first(),
 	'flavour_id' => Flavour::inRandomOrder()->first(),
 	'logo_id' => Logo::inRandomOrder()->first(),

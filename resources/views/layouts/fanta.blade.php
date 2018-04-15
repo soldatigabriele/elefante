@@ -12,7 +12,10 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/front.css') }}" rel="stylesheet" type="text/css"   >
     <link href="/css/dropzone.css" rel="stylesheet" type="text/css"   >
-
+    
+    <!-- Scripts -->
+    <script src="/js/application.js"></script>
+    
     <style>
     .selectize-input>.item{
         background: #1b9dec !important;
@@ -28,15 +31,15 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
-
+  
 
   @yield('content')
 
-
-  <script src="/js/application.js"></script>
   <script src="/js/dropzone.js"></script>
-  <!-- <script src="{{ base_path('node_modules/selectize/dist/js/selectize.js') }}"></script> -->
+
   @yield('scripts')
+
+
 
 </body>
 </html>

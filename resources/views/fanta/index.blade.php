@@ -8,63 +8,12 @@
     <a role="buttton" href="{{route('home')}}" class="btn btn-success">Home</a>
         <h2>Get a Fanta!</h2>
         <form action="{{ route('find-fanta') }}" class="form-control" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
-            {{ csrf_field() }}
-            <br>
-            <div class="col-12">
-                <div class="form-group col-12">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="all_logos" name="logo" value="all" @if(old('logo')) checked @endif checked>
-                        <label class="form-check-label" for="all_logos">All Logos</label>
-                    </div>
-                    @foreach($logos as $logo)
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="{{ $logo->name }}" name="logo" value="{{ $logo->id }}" @if(old('logo') == $logo->id) checked @endif>
-                        <label class="form-check-label" for="{{ $logo->name }}">{{ $logo->name }}</label>
-                    </div>
-                    @endforeach
-                </div>
-                <div class="form-group row">
-                    <label for="flavour" class="col-2 col-form-label">Flavour</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="" id="flavours" placeholder="Flavour" value="{{ old('flavour') }}" name="flavour">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="year" class="col-sm-2 col-form-label">Year</label>
-                    <div class="col-sm-10">
-                        <input type="integer" class="form-control" id="year" placeholder="Year" value="{{ old('year') }}" name="year">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Coutry</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="" id="country" placeholder="Country" value="{{ old('country') }}" name="country">
-                    </div>
-                </div>  
-                <div class="form-group row">
-                    <label for="colours" class="col-sm-2 col-form-label">Colour</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="" id="colours" placeholder="Colours" value="{{ old('colours') }}" name="colours">
-                    </div>
-                </div>                                
-                <div class="form-group row">
-                    <label for="tags" class="col-sm-2 col-form-label">Tags</label>
-                    <div class="col-sm-10">
-                        <input type="text" value="{{ old('tags') }}" name="tags" class="" id="tags" placeholder="Tags">
-                    </div>
-                </div>
-            </div>
-
-            <div class="clearfix"><br></div>
-
-
-            <div class="offset-1 col-sm-10">
-                <button type="submit" class="btn btn-outline-warning">Search</button>
-            </div>
-            <br>
+           
+            @include('fanta.partials.form', ['submitName' => 'Search' ])
+        
         </form>
     </div>
-
+<div id="app"></div>
 @if (session()->has('fantas'))
     
 <div class="clearfix"></div><br>
@@ -74,18 +23,17 @@
         <div class="row">
         @foreach(session('fantas') as $fs)
             @foreach($fs as $fanta)
-@if($fanta->preview)
-            <div class="col" style="max-width:280px; padding:10px">
-                <div class="card">
-                    
-                <div class="card-body" style="text-align:center;margin-bottom:10px;">
-                    <img src="/images/{{$fanta->id}}/{{$fanta->preview}}" width="100px">
-                    <div class="clearfix"></div><br>
-                    <a role="button" class="btn btn-outline-warning btn-sm" href="{{ route('edit-fanta', $fanta) }}">{{ $fanta->flavour->name }}</a>
+                @if($fanta->preview)
+                <div class="col" style="max-width:280px; padding:10px">
+                    <div class="card">
+                        <div class="card-body" style="text-align:center;margin-bottom:10px;">
+                            <img src="/images/{{$fanta->id}}/{{$fanta->preview}}" width="100px">
+                            <div class="clearfix"></div><br>
+                            <a role="button" class="btn btn-outline-warning btn-sm" href="{{ route('edit-fanta', $fanta) }}">{{ $fanta->flavour->name }}</a>
+                        </div>
+                    </div>
                 </div>
-                </div>
-            </div>
-@endif
+                @endif
             @endforeach
         @endforeach
         </div>
@@ -137,94 +85,12 @@
             </div>
 @endif
 
+
 </div>
 
+@include('scripts.selectize')
+@include('scripts.decimals')
+
+
 @endsection
 
-
-@section('scripts')
-<script>
-    var tags = [
-    @foreach ($tags as $tag)
-    {tag: "{{$tag}}" },
-    @endforeach
-    ];
-
-    var countries = [
-    @foreach ($countries as $country)
-    {country: "{{$country}}" },
-    @endforeach
-    ];
-
-    var colours = [
-    @foreach ($colours as $colour)
-    {colour: "{{$colour}}" },
-    @endforeach
-    ];
-
-    var flavours = [
-    @foreach ($flavours as $flavour)
-    {flavour: "{{$flavour}}" },
-    @endforeach
-    ];
-
-    console.log(flavours);
-    $( document ).ready(function() {
-
-        $('#tags').selectize({
-            delimiter: ',',
-            persist: false,
-            valueField: 'tag',
-            labelField: 'tag',
-            searchField: 'tag',
-            options: tags,
-            create: function(input) {
-                return {
-                    tag: input
-                }
-            }
-        });
-        $('#flavours').selectize({
-            delimiter: ',',
-            persist: false,
-            valueField: 'flavour',
-            labelField: 'flavour',
-            searchField: 'flavour',
-            maxItems: 1,
-            options: flavours,
-            create: function(input) {
-                return {
-                    flavour: input
-                }
-            }
-        });
-        $('#country').selectize({
-            delimiter: ',',
-            persist: false,
-            valueField: 'country',
-            labelField: 'country',
-            searchField: 'country',
-            maxItems: 1,
-            options: countries,
-            create: function(input) {
-                return {
-                    country: input
-                }
-            }
-        });
-        $('#colours').selectize({
-            delimiter: ',',
-            persist: false,
-            valueField: 'colour',
-            labelField: 'colour',
-            searchField: 'colour',
-            options: colours,
-            create: function(input) {
-                return {
-                    colour: input
-                }
-            }
-        });
-    });
-</script>
-@endsection
