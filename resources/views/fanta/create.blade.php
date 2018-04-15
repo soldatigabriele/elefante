@@ -21,8 +21,6 @@
 @include('scripts.selectize')
 @include('scripts.decimals')
 
-<script src="/js/app.js"></script>
-<script src="/js/dropzone.js"></script>
 
 @endsection
 
