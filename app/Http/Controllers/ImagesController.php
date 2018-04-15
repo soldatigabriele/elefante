@@ -68,6 +68,7 @@ class ImagesController extends Controller
      */
     public function storeSides(Fanta $fanta, Request $request)
     {
+        \Log::info('1');
         $save_path = storage_path('app/public/images/'.$fanta->id.'/');
         File::isDirectory($save_path) or File::makeDirectory($save_path, 0777, true, true);
         // store the full_size
@@ -79,6 +80,7 @@ class ImagesController extends Controller
         $im->original_name = $request->file('file')->getClientOriginalName().'.'.$ext;
         $im->original_size = $request->file('file')->getClientSize();
         
+        \Log::info('2');
         $full_size_name = 'F_'.md5(str_random(10)).'.'.$ext;
         $im->full_size = $full_size_name;
         // save the compressed image
@@ -86,6 +88,7 @@ class ImagesController extends Controller
         $im->normal_size = $normal_size_name;
         $im->save();
         
+        \Log::info('3');
         // store full size
         $full_size = Im::make($image);
         $full_size->save($save_path.'/'.$full_size_name, 90);
@@ -97,6 +100,7 @@ class ImagesController extends Controller
         });
         $normal_size->save($save_path.'/'.$normal_size_name, 60);        
         
+        \Log::info('4');
 
         return response()->json(['status'=>'success']);
     }
