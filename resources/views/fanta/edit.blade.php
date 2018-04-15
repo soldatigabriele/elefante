@@ -33,7 +33,3 @@
 @include('scripts.selectize')
 
 @endsection
-
-<?php
-phpinfo();
-?>
