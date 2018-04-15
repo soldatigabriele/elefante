@@ -111,7 +111,15 @@ class FantaController extends Controller
      */
     public function show(Fanta $fanta)
     {
-        
+       $colours = Colour::all()->pluck('name');
+        $countries = Country::all()->pluck('name');
+        $capacities = Fanta::get()->unique('capacity')->pluck('capacity');
+        $flavours = Flavour::all()->pluck('name');
+        $tags = Tag::all()->pluck('name');
+
+        return view('fanta.show')->with(['fanta' => $fanta, 'tags' => $tags, 'capacities'
+         => $capacities, 'countries' => $countries, 'colours' => $colours, 'flavours' => $flavours]);
+        // return view('fanta.edit')->with(['fanta' => $fanta]);   
     }
 
     /**

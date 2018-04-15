@@ -75,7 +75,8 @@
                                     <div>
                                         Year: {{$fanta->year}}
                                     </div>
-                                    <a role="button" class="btn btn-outline-warning btn-sm" href="{{ route('edit-fanta', $fanta) }}">Open</a>
+                                    @auth <a role="button" class="btn btn-outline-warning btn-sm" href="{{ route('edit-fanta', $fanta) }}">Edit</a> @endauth
+                                    <a role="button" class="btn btn-outline-success btn-sm" href="{{ route('show-fanta', $fanta) }}">Open</a>
                                 </div>
                             </div>
                         </div>
