@@ -4,7 +4,7 @@
         <div class="form-group col-12">
             @foreach($logos as $logo)
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="{{ $logo->name }}" name="logo" value="{{ $logo->id }}" @isset($fanta) @if($fanta->logo->id == $logo->id) checked @endif @endif>
+                <input class="form-check-input" type="radio" id="{{ $logo->name }}" name="logo" value="{{ $logo->id }}" @isset($fanta->logo) @if($fanta->logo->id == $logo->id) checked @endif @endif>
                 <label class="form-check-label" for="{{ $logo->name }}">{{ $logo->name }}</label>
             </div>
             @endforeach
