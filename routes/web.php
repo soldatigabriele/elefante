@@ -30,6 +30,7 @@ Route::post('fanta/find', 'FantaController@find')->name('find-fanta');
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 Route::get('fanta/{fanta}/images/create', 'ImagesController@create')->name('images.create');
 
 Route::get('fanta/{fanta}/sides/create', 'ImagesController@createSides')->name('sides.create');
@@ -42,11 +43,16 @@ Route::get('fanta/{fanta}/images/delete', 'ImagesController@destroyImages')->nam
 =======
 =======
 >>>>>>> parent of 9187602... fixed js and css
+=======
+>>>>>>> parent of 9187602... fixed js and css
 Route::get('fanta/{fanta}/preview/create', 'FantaController@createPreview')->name('preview.create');
 Route::get('fanta/{fanta}/sides/create', 'FantaController@createSides')->name('sides.create');
 Route::post('fanta/{fanta}/preview', 'FantaController@storePreview')->name('preview.store');
 Route::post('fanta/{fanta}/sides', 'FantaController@storeteSides')->name('sides.store');
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 9187602... fixed js and css
+=======
 >>>>>>> parent of 9187602... fixed js and css
 =======
 >>>>>>> parent of 9187602... fixed js and css

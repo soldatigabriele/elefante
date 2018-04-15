@@ -15,6 +15,7 @@
     <link href="{{ asset('css/front.css') }}" rel="stylesheet" type="text/css"   >
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <link href="/css/dropzone.css" rel="stylesheet" type="text/css"   >
     
     <!-- Scripts -->
@@ -22,6 +23,8 @@
     <script src="/js/dropzone.js"></script>
     
 =======
+=======
+>>>>>>> parent of 9187602... fixed js and css
     <link href="{{ asset('css/dropzone.css') }}" rel="stylesheet" type="text/css"   >
 
 >>>>>>> parent of 9187602... fixed js and css
@@ -51,7 +54,10 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 9187602... fixed js and css
 =======
 >>>>>>> parent of 9187602... fixed js and css
   <script src="/js/app.js"></script>
