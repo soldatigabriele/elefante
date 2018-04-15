@@ -3,7 +3,8 @@
 @section('content')
 
 @isset($fantas)
-
+<div class="container">
+    
 <a role="buttton" href="{{route('index-fanta')}}" class="btn btn-success">Search Again</a>
 
 
@@ -69,6 +70,8 @@
         </div>
     </div>
 @endif
+</div>
+
 
 @endsection
 

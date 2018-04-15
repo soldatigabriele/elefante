@@ -43,7 +43,7 @@
         <div class="form-group col-12">
             <div class="cc-selector"> 
             @foreach($logos as $logo)
-                <input type="radio" id="{{ $logo->name }}" name="logo" value="{{ $logo->id }}" @isset($fanta->logo) @if($fanta->logo->id == $logo->id) checked @endif @endif @if(2 == $logo->id) checked @endif>
+                <input type="radio" id="{{ $logo->name }}" name="logo" value="{{ $logo->id }}" @isset($fanta->logo) @if($fanta->logo_id == $logo->id) checked @endif @else @if(2 == $logo->id) checked @endif @endif>
                 <label class="drinkcard-cc {{$logo->name}}" for="{{ $logo->name }}" style="background-image:url({{ asset('images/logos/'.$logo->path ) }});"></label>
             @endforeach
             </div>

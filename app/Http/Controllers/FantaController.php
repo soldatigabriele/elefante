@@ -66,6 +66,7 @@ class FantaController extends Controller
         ]);
 
         $fanta->logo_id = $request->logo;
+        $fanta->capacity = $request->capacity;
 
         $colours = explode(',', $request->colours);
         foreach($colours as $c){
@@ -122,7 +123,6 @@ class FantaController extends Controller
     public function find(Request $request)
     {
         $fantas = Fanta::all();
-
         // LOGO
         $logo = ($request->logo);
         if($logo !== 'all'){
@@ -131,7 +131,6 @@ class FantaController extends Controller
                 $fantas = $fantas->intersect($fantas_logo);
             }
         }
-
         // YEAR
         $fantas_year = Fanta::where('year', $request->year)->get();
         if($fantas_year->count()){
@@ -199,8 +198,9 @@ class FantaController extends Controller
         }
 
         // CAPACITY
-        $fantas_capacity = Fanta::where('capacity', $request->capacity)->get();
-        if($fantas_capacity->count()){
+        // $fantas_capacity = Fanta::where('capacity', $request->capacity)->get();
+        $capacity = explode(',',$request->capacity);
+        if($capacity[0]){
             $fantas = $fantas->intersect($fantas_capacity);
         }
 
