@@ -15,10 +15,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(UsersTableSeeder::class);
+	    $this->call(LogosTableSeeder::class);
      //    $this->call(CountriesTableSeeder::class);
      //    $this->call(FlavoursTableSeeder::class);
-	    // $this->call(ColoursTableSeeder::class);
-	    // $this->call(LogosTableSeeder::class);
+        // $this->call(ColoursTableSeeder::class);
      //    $this->call(TagsTableSeeder::class);
         
         // factory('App\Fanta', 30)->create();
