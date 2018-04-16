@@ -141,9 +141,11 @@ class FantaController extends Controller
         }
 
         // YEAR
-        $fantas_year = Fanta::where('year', $request->year)->get();
-        if($fantas_year->count()){
-            $fantas = $fantas->intersect($fantas_year);
+        if($request->year){
+            $fantas_year = Fanta::where('year', $request->year)->get();
+            if($fantas_year->count()){
+                $fantas = $fantas->intersect($fantas_year);
+            }
         }
 
         // COUNTRY
