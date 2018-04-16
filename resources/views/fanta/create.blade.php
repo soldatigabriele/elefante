@@ -19,7 +19,6 @@
 
 
 @include('scripts.selectize')
-@include('scripts.decimals')
 
 
 @endsection

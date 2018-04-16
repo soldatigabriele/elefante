@@ -60,11 +60,11 @@
         <div class="form-group row">
             <label for="year" class="col-sm-2 col-form-label">Year</label>
             <div class="col-sm-10">
-                <input type="integer" class="form-control" id="year" placeholder="Year" value="@isset($fanta){{ $fanta->year }}@endif" name="year">
+                <input type="integer" class="decimals form-control" id="year" placeholder="Year" value="@isset($fanta){{ $fanta->year }}@endif" name="year">
             </div>
         </div>
         <div class="form-group row">
-            <label for="" class="col-sm-2 col-form-label">Capacity</label>
+            <label for="capacity" class="col-sm-2 col-form-label">Capacity</label>
             <div class="col-sm-10">
                 <input type="integer" class="decimals" id="capacity" placeholder="Capacity in ml" value="@isset($fanta){{ $fanta->capacity }}@endif" name="capacity">
             </div>
@@ -98,5 +98,3 @@
     <br>
 
 @include('scripts.decimals')
-
-
