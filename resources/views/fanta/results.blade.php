@@ -13,7 +13,7 @@
     <div class="" style="padding:10px;margin:6px;text-align:center;">
         <h4>Matches</h4>
         <div class="row">
-        @foreach($fantas as $fanta)
+        @foreach($fantas->sortBy('flavour_id') as $fanta)
                 @if($fanta->preview)
                 <div class="col" style="max-width:280px; padding:10px">
                     <div class="card">
