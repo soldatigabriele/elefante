@@ -1,5 +1,25 @@
 @extends('layouts.fanta')
 
+@section('style')
+<style>
+    
+.buttons{
+    position:absolute;
+    bottom:10px;
+    right: 0%;
+    left: 0%;
+}
+.button-link{
+    width: 50px;
+}
+.carte-results{
+    text-align:center;
+    margin-bottom:10px;
+    height:230px;
+}
+</style>
+@endsection
+
 @section('content')
 
 @isset($fantas)
@@ -15,13 +35,15 @@
         <div class="row">
         @foreach($fantas->sortBy('flavour_id') as $fanta)
                 @if($fanta->preview)
-                <div class="col" style="max-width:280px; padding:10px">
+                <div class="col">
                     <div class="card">
-                        <div class="card-body" style="text-align:center;margin-bottom:10px;">
-                            <a role="" class="" href="{{ route('show-fanta', $fanta) }}"><img src="{{ asset('storage/images/'.$fanta->id.'/'.$fanta->preview) }}" width="100px"></a>
+                        <div class="card-body carte-results">
+                            <a role="" class="" href="{{ route('show-fanta', $fanta) }}"><img src="{{ asset('storage/images/'.$fanta->id.'/'.$fanta->preview) }}" width="100px" max-height="200px"></a>
                             <div class="clearfix"></div><br>
-                            <a role="button" class="btn btn-outline-success btn-sm" href="{{ route('show-fanta', $fanta) }}">Open</a>
-                            @auth<a role="button" class="btn btn-outline-warning btn-sm" href="{{ route('edit-fanta', $fanta) }}">Edit</a>@endauth
+                            <div class="buttons">
+                                <a role="button" class="btn btn-outline-success btn-sm button-link" href="{{ route('show-fanta', $fanta) }}">Open</a>
+                                @auth<a role="button" class="btn btn-outline-warning btn-sm button-link" href="{{ route('edit-fanta', $fanta) }}">Edit</a>@endauth
+                            </div>
                         </div>
                     </div>
                 </div>
