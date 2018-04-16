@@ -70,7 +70,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="" class="col-sm-2 col-form-label">Coutry</label>
+            <label for="" class="col-sm-2 col-form-label">Country</label>
             <div class="col-sm-10">
                 <input type="text" class="" id="country" placeholder="Country" value="@isset($fanta){{ $fanta->country->name }}@endif" name="country">
             </div>
