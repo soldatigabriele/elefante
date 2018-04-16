@@ -35,7 +35,7 @@
         <div class="row">
         @foreach($fantas->sortBy('flavour_id') as $fanta)
                 @if($fanta->preview)
-                <div class="col">
+                <div class="col" style="max-width:280px;padding:10px">
                     <div class="card">
                         <div class="card-body carte-results">
                             <a role="" class="" href="{{ route('show-fanta', $fanta) }}"><img src="{{ asset('storage/images/'.$fanta->id.'/'.$fanta->preview) }}" width="100px" max-height="200px"></a>
