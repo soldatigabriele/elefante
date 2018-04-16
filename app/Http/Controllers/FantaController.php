@@ -91,13 +91,12 @@ class FantaController extends Controller
         if(!$country){
             $country = Country::create(['name' => $request->country]);
         }
+        $country->fantas()->save($fanta);
 
         $flavour = Flavour::where('name', $request->flavour)->first();
         if(!$flavour){
             $flavour = Flavour::create(['name' => $request->flavour]);
         }
-
-        $country->fantas()->save($fanta);
         $flavour->fantas()->save($fanta);
 
         return redirect(route('images.create', $fanta));
@@ -247,13 +246,22 @@ class FantaController extends Controller
      */
     public function update(Fanta $fanta, Request $request)
     {
+
         $country = Country::where('name', $request->country)->first();
+        if(!$country){
+            $country = Country::create(['name' => $request->country]);
+        }
+        $country->fantas()->save($fanta);
+
         $flavour = Flavour::where('name', $request->flavour)->first();
-        $fanta->country_id = $country->id;
+        if(!$flavour){
+            $flavour = Flavour::create(['name' => $request->flavour]);
+        }
+        $flavour->fantas()->save($fanta);
+        
         $fanta->logo_id = $request->logo;
         $fanta->capacity = $request->capacity;
         $fanta->year = $request->year;
-        $fanta->flavour_id = $flavour->id;
         $fanta->save();
 
         $country->fantas()->save($fanta);
