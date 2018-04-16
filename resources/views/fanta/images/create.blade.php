@@ -14,11 +14,11 @@
 @section('content')
 
 <div class="container">
-    <div class="content col-6">
+    <div class="content col-12">
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-8">
                         <div>
                             Colour: 
                             @foreach($fanta->colours as $colour)
