@@ -66,7 +66,7 @@
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Capacity</label>
             <div class="col-sm-10">
-                <input type="integer" class="decimals" id="capacity" placeholder="Capacity in ml. Es: 350" value="@isset($fanta){{ $fanta->capacity }}@endif" name="capacity">
+                <input type="integer" class="decimals" id="capacity" placeholder="Capacity in ml" value="@isset($fanta){{ $fanta->capacity }}@endif" name="capacity">
             </div>
         </div>
         <div class="form-group row">
