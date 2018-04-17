@@ -209,7 +209,7 @@ class FantaController extends Controller
         }
 
         // CAPACITY
-        // $fantas_capacity = Fanta::where('capacity', $request->capacity)->get();
+        $fantas_capacity = Fanta::where('capacity', $request->capacity)->get();
         $capacity = explode(',',$request->capacity);
         if($capacity[0]){
             $fantas = $fantas->intersect($fantas_capacity);
