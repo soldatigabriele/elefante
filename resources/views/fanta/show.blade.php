@@ -21,6 +21,9 @@
                             Flavour: {{ $fanta->flavour->name }}
                         </div>
                         <div>
+                            Country: {{ $fanta->country->name }}
+                        </div>
+                        <div>
                             Tags: 
                             @foreach($fanta->tags as $tag)
                             {{$tag->name}},
