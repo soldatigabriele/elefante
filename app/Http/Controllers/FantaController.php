@@ -65,7 +65,7 @@ class FantaController extends Controller
             'year' => $request->year,
         ]);
 
-        $fanta->logo_id = ($request->logo === 'all')? 99 : $request->logo;
+        $fanta->logo_id = $request->logo;
         
         $fanta->capacity = $request->capacity;
 
