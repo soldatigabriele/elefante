@@ -43,13 +43,13 @@
                 <h4>Fantastic!</h4>
                 <div class="row">
                     @foreach($fanta->images as $image)
-                    <div style="max-width:100%; padding:0px 0px 5px 0px">
+                    <div style="max-width:100%; padding:0px 0px 5px 0px; margin: 0 10px">
                         <div class="card">
                             <div class="card-body" style="text-align:center;margin-bottom:10px;">
-            
-                                <div class="" style="text-align:center;margin-bottom:10px;">
+                                <div class="" style="text-align:center;margin-bottom:0px;">
                                     <img src="{{ asset('storage/images/'.$fanta->id.'/'.$image->normal_size) }}" width="100%">
                                     <div class="clearfix"></div><br>
+                                    @auth<a role="button" class="btn btn-outline-success btn-sm button-link" href="{{ asset('storage/images/'.$fanta->id.'/'.$image->full_size) }}">Full Size</a>@endauth
                                 </div>
                             </div>
                         </div>
