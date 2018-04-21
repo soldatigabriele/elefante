@@ -18,9 +18,8 @@ class FantaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function find()
     {
-
         $colours = Colour::all()->pluck('name');
         $countries = Country::all()->pluck('name');
         $capacities = Fanta::get()->unique('capacity')->pluck('capacity');
@@ -31,7 +30,7 @@ class FantaController extends Controller
         // $fantas = Fanta::inRandomOrder()->take(10)->get();
         // Session::put(['fantas'=>$fantas]);
 
-        return view('fanta.index')->with(['tags' => $tags, 'capacities'
+        return view('fanta.find')->with(['tags' => $tags, 'capacities'
          => $capacities, 'countries' => $countries, 'colours' => $colours, 'flavours' => $flavours]);
     }
 
@@ -128,18 +127,18 @@ class FantaController extends Controller
      * @param  App\Fanta  $fanta
      * @return \Illuminate\Http\Response
      */
-    public function find(Request $request)
+    public function filter(Request $request)
     {
         $fantas = Fanta::all();
         // LOGO
         $logo = ($request->logo);
-        if($logo !== 'all'){
+        if($logo != 4){
             $fantas_logo = Fanta::where('logo_id', $logo)->get();
             if($fantas_logo->count()){
                 $fantas = $fantas->intersect($fantas_logo);
             }
         }
-
+        
         // YEAR
         if($request->year){
             $fantas_year = Fanta::where('year', $request->year)->get();
@@ -147,7 +146,7 @@ class FantaController extends Controller
                 $fantas = $fantas->intersect($fantas_year);
             }
         }
-
+        
         // COUNTRY
         $countries = explode(',',$request->country);
         if($countries[0]){
@@ -161,8 +160,8 @@ class FantaController extends Controller
                 $fantas = $fantas->intersect($fantas_country);
             }
         }
-
-
+        
+        
         // FLAVOUR
         $flavours = explode(',',$request->flavour);
         if($flavours[0]){

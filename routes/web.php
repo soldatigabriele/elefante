@@ -20,13 +20,13 @@ Route::get('/', function(){
 	return view('homepage');
 })->name('home');
 
-Route::get('fanta', 'FantaController@index')->name('index-fanta');
-Route::get('fanta/create', 'FantaController@create')->name('create-fanta')->middleware('auth');
-Route::get('fanta/{fanta}', 'FantaController@show')->name('show-fanta');
-Route::get('fanta/{fanta}/edit', 'FantaController@edit')->name('edit-fanta')->middleware('auth');;
-Route::put('fanta/{fanta}', 'FantaController@update')->name('update-fanta');
+Route::get('fanta', 'FantaController@find')->name('fanta.find');
+Route::get('fanta/filter', 'FantaController@filter')->name('fanta.filter');
+Route::get('fanta/create', 'FantaController@create')->name('fanta.create')->middleware('auth');
+Route::get('fanta/{fanta}', 'FantaController@show')->name('fanta.show');
+Route::get('fanta/{fanta}/edit', 'FantaController@edit')->name('fanta.edit')->middleware('auth');;
+Route::put('fanta/{fanta}', 'FantaController@update')->name('fanta.update');
 Route::post('fanta', 'FantaController@store')->name('fanta.store');
-Route::post('fanta/find', 'FantaController@find')->name('find-fanta');
 
 Route::get('fanta/{fanta}/images/create', 'ImagesController@create')->name('images.create');
 

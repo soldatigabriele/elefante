@@ -25,7 +25,7 @@
 @isset($fantas)
 <div class="container">
     
-<a role="buttton" href="{{route('index-fanta')}}" class="btn btn-success">Search Again</a>
+<a role="buttton" href="{{route('fanta.find')}}" class="btn btn-success">Search More</a>
 
 
 <div class="clearfix"></div><br>
@@ -38,11 +38,11 @@
                 <div class="col" style="max-width:280px;padding:10px">
                     <div class="card">
                         <div class="card-body carte-results">
-                            <a role="" class="" href="{{ route('show-fanta', $fanta) }}"><img src="{{ asset('storage/images/'.$fanta->id.'/'.$fanta->preview) }}" width="100px" max-height="200px"></a>
+                            <a role="" class="" href="{{ route('fanta.show', $fanta) }}"><img src="{{ asset('storage/images/'.$fanta->id.'/'.$fanta->preview) }}" width="100px" max-height="200px"></a>
                             <div class="clearfix"></div><br>
                             <div class="buttons">
-                                <a role="button" class="btn btn-outline-success btn-sm button-link" href="{{ route('show-fanta', $fanta) }}">Open</a>
-                                @auth<a role="button" class="btn btn-outline-warning btn-sm button-link" href="{{ route('edit-fanta', $fanta) }}">Edit</a>@endauth
+                                <a role="button" class="btn btn-outline-success btn-sm button-link" href="{{ route('fanta.show', $fanta) }}">Open</a>
+                                @auth<a role="button" class="btn btn-outline-warning btn-sm button-link" href="{{ route('fanta.edit', $fanta) }}">Edit</a>@endauth
                             </div>
                         </div>
                     </div>
@@ -84,8 +84,8 @@
                         <div>
                             Year: {{$fanta->year}}
                         </div>
-                        <a role="button" class="btn btn-outline-success btn-sm" href="{{ route('show-fanta', $fanta) }}">Open</a>
-                        @auth <a role="button" class="btn btn-outline-warning btn-sm" href="{{ route('edit-fanta', $fanta) }}">Edit</a>@endauth
+                        <a role="button" class="btn btn-outline-success btn-sm" href="{{ route('fanta.show', $fanta) }}">Open</a>
+                        @auth <a role="button" class="btn btn-outline-warning btn-sm" href="{{ route('fanta.edit', $fanta) }}">Edit</a>@endauth
 
                     </div>
                 </div>

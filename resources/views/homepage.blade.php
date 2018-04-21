@@ -65,8 +65,9 @@
         </div>
 
         <div class="links">
-            <a href="{{ route('create-fanta') }}">New Can</a>
-            <a href="{{ route('index-fanta') }}">Search</a>
+            <a href="{{ route('fanta.create') }}">Add</a>
+            <a href="{{ route('fanta.filter') }}">All</a>
+            <a href="{{ route('fanta.find') }}">Find</a>
         </div>
     </div>
 </div>

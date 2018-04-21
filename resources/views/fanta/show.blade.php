@@ -5,7 +5,7 @@
     <br>        
     <div class="col-12">
         <a role="buttton" href="{{route('home')}}" class="btn btn-success">Home</a>
-        <a role="buttton" href="{{route('index-fanta')}}" class="btn btn-success">Search Again</a>
+        <a role="buttton" href="{{route('fanta.index')}}" class="btn btn-success">Search Again</a>
         <div class="clearfix"></div><br>
         <div class="card">
             <div class="card-body">

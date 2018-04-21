@@ -7,7 +7,7 @@
     <div class=" col-12">
     <a role="buttton" href="{{route('home')}}" class="btn btn-success">Home</a>
         <h2>Get a Fanta!</h2>
-        <form action="{{ route('find-fanta') }}" class="form-control" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
+        <form action="{{ route('fanta.filter') }}" class="form-control" method="GET" accept-charset="utf-8" enctype="multipart/form-data">
            
             @include('fanta.partials.form', ['submitName' => 'Search' ])
         
@@ -29,7 +29,7 @@
                         <div class="card-body" style="text-align:center;margin-bottom:10px;">
                             <img src="/images/{{$fanta->id}}/{{$fanta->preview}}" width="100px">
                             <div class="clearfix"></div><br>
-                            <a role="button" class="btn btn-outline-warning btn-sm" href="{{ route('edit-fanta', $fanta) }}">{{ $fanta->flavour->name }}</a>
+                            <a role="button" class="btn btn-outline-warning btn-sm" href="{{ route('fanta.edit', $fanta) }}">{{ $fanta->flavour->name }}</a>
 
                         </div>
                     </div>
@@ -75,8 +75,8 @@
                                     <div>
                                         Year: {{$fanta->year}}
                                     </div>
-                                    @auth <a role="button" class="btn btn-outline-warning btn-sm" href="{{ route('edit-fanta', $fanta) }}">Edit</a> @endauth
-                                    <a role="button" class="btn btn-outline-success btn-sm" href="{{ route('show-fanta', $fanta) }}">Open</a>
+                                    @auth <a role="button" class="btn btn-outline-warning btn-sm" href="{{ route('fanta.edit', $fanta) }}">Edit</a> @endauth
+                                    <a role="button" class="btn btn-outline-success btn-sm" href="{{ route('fanta.show', $fanta) }}">Open</a>
                                 </div>
                             </div>
                         </div>

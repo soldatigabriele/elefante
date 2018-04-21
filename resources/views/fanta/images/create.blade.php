@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div class="col">
-                        <a role="button" class="btn btn-outline-warning" href="{{route('create-fanta')}}">Create a new Fanta</a>
+                        <a role="button" class="btn btn-outline-warning" href="{{route('fanta.create')}}">Create a new Fanta</a>
                     </div>
                 </div>
             </div>

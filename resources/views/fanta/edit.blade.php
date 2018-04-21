@@ -12,7 +12,7 @@
     <a role="buttton" href="{{route('home')}}" class="btn btn-success">Home</a>
         
     <h2>Edit a Fanta</h2>
-    <form action="{{ route('update-fanta', $fanta->id) }}" class="form-control" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
+    <form action="{{ route('fanta.update', $fanta->id) }}" class="form-control" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
         @method('put')
         @include('fanta.partials.form', ['submitName' => 'Update' ])
     </form>
