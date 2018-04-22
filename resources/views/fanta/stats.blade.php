@@ -94,7 +94,6 @@ function drawBasic() {
 
 // Countries
 <script type="text/javascript">
-
       google.charts.load('current', {
         'packages':['geochart'],
         'mapsApiKey': 'AIzaSyBo0h7ZKNAu_0bEUgHPB2i2iv3yxk_GYfw'
@@ -109,13 +108,42 @@ function drawBasic() {
             @endforeach
         ]);
 
-        var options = {};
+        var options = {
+            region: '150',
+            colorAxis: {colors: ['#fcd276', '#ffaf00']},
+            defaultColor: '#f5f5f5',
+        };
 
-        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+        var chart = new google.visualization.GeoChart(document.getElementById('europe_div'));
 
         chart.draw(data, options);
       }
-    </script>
+</script>
+<script type="text/javascript">
+      google.charts.load('current', {
+        'packages':['geochart'],
+        'mapsApiKey': 'AIzaSyBo0h7ZKNAu_0bEUgHPB2i2iv3yxk_GYfw'
+      });
+      google.charts.setOnLoadCallback(drawRegionsMap);
+
+      function drawRegionsMap() {
+        var data = google.visualization.arrayToDataTable([
+            ['Country', 'Popularity'],
+            @foreach ($stats->countries->distinct  as $index => $element)
+                ['{{ $element->name }}', {{ $element->count }}],
+            @endforeach
+        ]);
+
+        var options = {
+            colorAxis: {colors: ['#fcd276', '#ffaf00']},
+            defaultColor: '#f5f5f5',
+        };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('world_div'));
+
+        chart.draw(data, options);
+      }
+</script>
 @endsection
         
 @section('content')
@@ -135,7 +163,8 @@ function drawBasic() {
         @endforeach
         <hr>
         </div>
-        <div id="regions_div" style="width: 900px; height: 500px;"></div>
+        <div id="world_div" style="width: 900px; height: 500px;"></div>
+        <div id="europe_div" style="width: 900px; height: 500px;"></div>
 
             <div id="chart_div"></div>
 
