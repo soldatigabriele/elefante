@@ -29,7 +29,7 @@ class StatsController extends Controller
         $stats->tags = new \StdClass();
         $stats->tags->count = Tag::all()->count();
         $stats->tags->distinct = DB::table('fantas')
-                    ->select(DB::raw('count(t.name) count, t.name'))
+                    ->select(DB::raw('count(t.name) as count, t.name'))
                     ->join('fanta_tag as tf', 'tf.fanta_id', '=', 'fantas.id')
                     ->join('tags as t', 'tf.tag_id', '=', 't.id')
                     ->groupBy('t.name')
@@ -38,7 +38,7 @@ class StatsController extends Controller
         $stats->flavours = new \StdClass();
         $stats->flavours->count = FLavour::all()->count();
         $stats->flavours->distinct = DB::table('fantas')
-                     ->select(DB::raw('count(fantas.flavour_id) count, flavours.name'))
+                     ->select(DB::raw('count(fantas.flavour_id) as count, flavours.name'))
                      ->join('flavours', 'fantas.flavour_id', '=', 'flavours.id')
                      ->groupBy('flavour_id')
                      ->get();
@@ -46,19 +46,32 @@ class StatsController extends Controller
         $stats->countries = new \StdClass();
         $stats->countries->count = Country::all()->count();
         $stats->countries->distinct = DB::table('fantas')
-            ->select(DB::raw('count(fantas.country_id) count, countries.name'))
+            ->select(DB::raw('count(year) as count, countries.name'))
             ->join('countries', 'fantas.country_id', '=', 'countries.id')
             ->groupBy('country_id')
+            ->get();
+
+
+        $stats->years = new \StdClass();
+        $stats->years = DB::table('fantas')
+            ->select(DB::raw('count(year) as count, year'))
+            ->groupBy('year')
+            ->get();
+
+        $stats->capacities = new \StdClass();
+        $stats->capacities = DB::table('fantas')
+            ->select(DB::raw('count(capacity) as count, capacity'))
+            ->groupBy('capacity')
             ->get();
 
         $stats->logos = new \StdClass();
         $stats->logos->count = Logo::all()->count() -1;
         $stats->logos->distinct = DB::table('fantas')
-            ->select(DB::raw('count(fantas.logo_id) count, logos.name'))
+            ->select(DB::raw('count(fantas.logo_id) as count, logos.name'))
             ->join('logos', 'fantas.logo_id', '=', 'logos.id')
             ->groupBy('logo_id')
             ->get();
-// dump($stats);
+// dump($stats->years);
         return view('fanta.stats')->with('stats', $stats);
 
     }

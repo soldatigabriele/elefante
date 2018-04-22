@@ -11,10 +11,6 @@ html, body {
     margin: 0;
 }
 
-.full-height {
-    height: 100vh;
-}
-
 .flex-center {
     align-items: center;
     display: flex;
@@ -52,17 +48,24 @@ html, body {
 .m-b-md {
     margin-bottom: 30px;
 }
+
+.chart{
+    display: inline-block;
+    margin:0px auto;
+}
 </style>
 @endsection
 
 @section('header-scripts')
 
-// Colours
 <script type="text/javascript">
-google.charts.load('current', {packages: ['corechart', 'bar']});
-google.charts.setOnLoadCallback(drawBasic);
 
-function drawBasic() {
+// Colours
+google.charts.load("current", {packages:["corechart", "bar", "geochart"], 'mapsApiKey': 'AIzaSyBo0h7ZKNAu_0bEUgHPB2i2iv3yxk_GYfw' });
+
+google.charts.setOnLoadCallback(drawColoursChart);
+
+function drawColoursChart() {
     
     var data = google.visualization.arrayToDataTable([
         ['Element', 'Count', { role: 'style' }],
@@ -79,28 +82,51 @@ function drawBasic() {
         vAxis: {
             title: 'Count'
         },
-        animation:{
-            startup: true,
-            duration: 400,
-        }
+        width: 1200,
+        height: 400,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
     };
 
-    var chart = new google.visualization.ColumnChart(
-        document.getElementById('chart_div'));
+    var coloursChart = new google.visualization.ColumnChart(
+        document.getElementById('colours_div'));
             
-    chart.draw(data, options);
+        coloursChart.draw(data, options);
 }
 </script>
 
-// Countries
 <script type="text/javascript">
-      google.charts.load('current', {
-        'packages':['geochart'],
-        'mapsApiKey': 'AIzaSyBo0h7ZKNAu_0bEUgHPB2i2iv3yxk_GYfw'
-      });
-      google.charts.setOnLoadCallback(drawRegionsMap);
+  
+    // World
+    
+      google.charts.setOnLoadCallback(drawWorldMap);
 
-      function drawRegionsMap() {
+      function drawWorldMap() {
+        var data = google.visualization.arrayToDataTable([
+            ['Country', 'Popularity'],
+            @foreach ($stats->countries->distinct  as $index => $element)
+                ['{{ $element->name }}', {{ $element->count }}],
+            @endforeach
+        ]);
+
+        var options = {
+            colorAxis: {colors: ['#fcd276', '#ffaf00']},
+            defaultColor: '#f5f5f5',
+            magnifyingGlass: {
+                enable: true, zoomFactor: 7.5
+                }
+        };
+
+        var countriesWorldChart = new google.visualization.GeoChart(document.getElementById('world_div'));
+
+        countriesWorldChart.draw(data, options);
+      }
+
+        // Countries
+         
+      google.charts.setOnLoadCallback(drawEuropeMap);
+
+      function drawEuropeMap() {
         var data = google.visualization.arrayToDataTable([
             ['Country', 'Popularity'],
             @foreach ($stats->countries->distinct  as $index => $element)
@@ -112,37 +138,125 @@ function drawBasic() {
             region: '150',
             colorAxis: {colors: ['#fcd276', '#ffaf00']},
             defaultColor: '#f5f5f5',
+            magnifyingGlass: {
+                enable: true, zoomFactor: 7.5
+                }
+
         };
 
-        var chart = new google.visualization.GeoChart(document.getElementById('europe_div'));
+        var countriesEuropeChart = new google.visualization.GeoChart(document.getElementById('europe_div'));
 
-        chart.draw(data, options);
+        countriesEuropeChart.draw(data, options);
       }
-</script>
-<script type="text/javascript">
-      google.charts.load('current', {
-        'packages':['geochart'],
-        'mapsApiKey': 'AIzaSyBo0h7ZKNAu_0bEUgHPB2i2iv3yxk_GYfw'
-      });
-      google.charts.setOnLoadCallback(drawRegionsMap);
 
-      function drawRegionsMap() {
-        var data = google.visualization.arrayToDataTable([
-            ['Country', 'Popularity'],
-            @foreach ($stats->countries->distinct  as $index => $element)
-                ['{{ $element->name }}', {{ $element->count }}],
+// Year
+
+
+    google.charts.setOnLoadCallback(drawYearChart);
+    
+    function drawYearChart() {
+        
+        let body = [
+            'Year',
+            @foreach ($stats->years  as $index => $element)
+                {{ $element->count }},
             @endforeach
+            ''
+        ];
+        let headers = [
+            'Year',
+            @foreach ($stats->years  as $index => $element)
+                '{{ $element->year }}',
+            @endforeach
+            {role: 'annotation'}
+        ];
+
+        var data = google.visualization.arrayToDataTable([
+            headers, body
         ]);
 
         var options = {
-            colorAxis: {colors: ['#fcd276', '#ffaf00']},
-            defaultColor: '#f5f5f5',
+            width: 400,
+            height: 600,
+            legend: { position: 'top', maxLines: 3 },
+            bar: { groupWidth: '75%' },
+            isStacked: true,
+            colors: [ '#ffd175', '#ffc85b', '#efae2d', '#ffad0f', '#ffa900']
+
+        };
+        var options_fullStacked = {
+          isStacked: 'percent',
+          height: 300,
+          legend: {position: 'top', maxLines: 3},
+          vAxis: {
+            minValue: 0,
+            ticks: [0, .3, .6, .9, 1]
+          }
+        };
+        var yearsChart = new google.visualization.ColumnChart(
+            document.getElementById('years_div'));
+
+        yearsChart.draw(data, options);
+    }
+
+    // Flavours
+    google.charts.setOnLoadCallback(drawFlavoursChart);
+    function drawFlavoursChart() {
+        var data = google.visualization.arrayToDataTable([
+        ['Task', 'Hours per Day'],
+        @foreach ($stats->flavours->distinct  as $index => $element)
+            ['{{ $element->name }}', {{ $element->count }}],
+        @endforeach
+        ]);
+
+        var options = {
+            title: 'Flavours',
+            pieHole: 0.4,
+            colors: [ '#ffd175', '#ffc85b', '#efae2d', '#ffad0f', '#ffa900']
         };
 
-        var chart = new google.visualization.GeoChart(document.getElementById('world_div'));
-
-        chart.draw(data, options);
+        var flavoursChart = new google.visualization.PieChart(document.getElementById('flavours_div'));
+        flavoursChart.draw(data, options);
       }
+// Capacities 
+    google.charts.setOnLoadCallback(drawCapacityChart);
+
+    function drawCapacityChart() {
+        
+        let colors = [ '#ffd175', '#ffc85b', '#efae2d', '#ffad0f', '#ffa900']
+
+        var data = google.visualization.arrayToDataTable([
+            ['Element', 'Count', { role: 'style' }],
+            @foreach ($stats->capacities  as $index => $element)
+                ['{{ $element->capacity }}', 
+                {{ $element->count }} ,
+                colors[Math.floor(Math.random()*colors.length)] ], 
+            @endforeach
+        ]);
+        
+        var options = {
+            title: 'Capacity',
+            hAxis: {
+                title: 'Capacity',
+            },
+            vAxis: {
+                title: 'Count'
+            },
+            animation:{
+                startup: true,
+                duration: 400,
+            },
+            width: 1200,
+            height: 400,
+            bar: {groupWidth: "95%"},
+            legend: { position: "none" },
+        };
+
+        var capacityChart = new google.visualization.ColumnChart(
+            document.getElementById('capacities_div'));
+                
+        capacityChart.draw(data, options);
+    }
 </script>
 @endsection
         
@@ -153,34 +267,13 @@ function drawBasic() {
         <div class="title m-b-md">
         Here some stats...
         </div>
-        <div> 
-            Number of colours: {{$stats->colours->count }}
-        </div>
-        <div> 
-        <hr>
-        @foreach ($stats->colours->distinct  as $index => $element)
-            {{$element->name}} {{ $element->count }}
-        @endforeach
-        <hr>
-        </div>
-        <div id="world_div" style="width: 900px; height: 500px;"></div>
-        <div id="europe_div" style="width: 900px; height: 500px;"></div>
+        <div class="chart" id="flavours_div" style="width: 900px; height: 500px;"></div>
+        <div class="chart" id="capacities_div"></div>
+        <div class="chart" id="colours_div"></div>
+        <div class="chart" id="world_div" style="width: 900px; height: 500px;"></div>
+        <div class="chart" id="europe_div" style="width: 900px; height: 500px;"></div>
+        <div class="chart" id="years_div"></div>
 
-            <div id="chart_div"></div>
-
-
-        <div> 
-            Number of flavours: {{$stats->flavours->count }}
-        </div>
-        <div> 
-            Number of tags: {{$stats->tags->count }}
-        </div>
-        <div> 
-            Number of countries: {{$stats->countries->count }}
-        </div>
-        <div> 
-            Number of logos: {{$stats->logos->count }}
-        </div>
     </div>
 </div>
 @endsection
