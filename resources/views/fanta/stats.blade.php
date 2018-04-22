@@ -80,11 +80,6 @@ let colours = {
 }
 
 function drawColoursChart() {
-    @foreach ($stats->colours->distinct  as $index => $element)
-        console.log('{{ $element->name}}');
-        console.log( colours['{{ $element->name}}'] );
-
-    @endforeach
     var data = google.visualization.arrayToDataTable([
         ['Element', 'Count', { role: 'style' }],
         @foreach ($stats->colours->distinct  as $index => $element)
@@ -164,8 +159,6 @@ function drawColoursChart() {
       }
 
 // Year
-
-
     google.charts.setOnLoadCallback(drawYearChart);
     
     function drawYearChart() {
@@ -241,7 +234,7 @@ function drawColoursChart() {
         var data = google.visualization.arrayToDataTable([
             ['Element', 'Count', { role: 'style' }],
             @foreach ($stats->capacities  as $index => $element)
-                ['{{ $element->capacity }}',
+                ['{{ $element->capacity }}ml',
                 {{ $element->count }},
                 colors[Math.floor(Math.random()*colors.length)] ], 
             @endforeach
