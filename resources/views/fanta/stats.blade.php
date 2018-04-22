@@ -62,9 +62,6 @@ google.charts.setOnLoadCallback(drawBasic);
 
 function drawBasic() {
     
-
-// console.log(elements);
-    // var data = new google.visualization.DataTable();
     var data = google.visualization.arrayToDataTable([
         ['Element', 'Count', { role: 'style' }],
         @foreach ($stats->colours->distinct  as $index => $element)
