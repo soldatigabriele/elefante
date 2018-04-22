@@ -62,18 +62,26 @@ class StatsController extends Controller
             arsort($colourCount);
             $groupColour = collect($colourCount)->keys()->first();
             
-            // dd($stats->flavours->distinct);
             $stats->flavours->colours->$flavour = $groupColour; 
         }
 
+        
+        $flavCollection = collect($stats->flavours->distinct);
+        $stats->flavours->distinct = $flavCollection->sortBy('name')->toArray();
+        
+        $coloursCollection = collect($stats->flavours->colours);
+        $stats->flavours->colours = $coloursCollection->sortKeys()->toArray();
+
+        // dump(collect($stats->flavours->colours), collect($stats->flavours->distinct));
+        
         $colours = new \StdClass();
         $colours->group = DB::table('fantas')
-                        ->select(DB::raw('count(c.name) as count, c.name'))
-                        ->join('colour_fanta as cf', 'cf.fanta_id', '=', 'fantas.id')
-                        ->join('colours as c', 'cf.colour_id', '=', 'c.id')
-                        ->groupBy('c.name')
-                        ->orderByRaw('count(c.name) desc')
-                        ->get();
+            ->select(DB::raw('count(c.name) as count, c.name'))
+            ->join('colour_fanta as cf', 'cf.fanta_id', '=', 'fantas.id')
+            ->join('colours as c', 'cf.colour_id', '=', 'c.id')
+            ->groupBy('c.name')
+            ->orderByRaw('count(c.name) desc')
+            ->get();
                 
         $stats->countries = new \StdClass();
         $stats->countries->count = Country::all()->count();

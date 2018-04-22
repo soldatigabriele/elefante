@@ -70,7 +70,7 @@ let colours = {
     'Pink': '#F8BBD0',
     'Purple': '#512DA8',
     'Blue': '#1976D2',
-    'Light_blue': '#03A9F4',
+    'Light blue': '#03A9F4',
     'Green': '#388E3C',
     'Orange': '#FF9800',
     'Yellow': '#FFEB3B',
@@ -205,8 +205,14 @@ function drawColoursChart() {
 
         yearsChart.draw(data, options);
     }
+    
+    // Flavours
+    @foreach ($stats->flavours->colours  as $index => $element)
+    console.log('{{ $element }}');
+    console.log(colours['{{ $element }}']);
 
-// Flavours
+    @endforeach
+
     google.charts.setOnLoadCallback(drawFlavoursChart);
     function drawFlavoursChart() {
         var data = google.visualization.arrayToDataTable([
@@ -219,8 +225,9 @@ function drawColoursChart() {
         var options = {
             pieHole: 0.4,
             slices: [
-            @foreach ($stats->flavours->distinct  as $index => $element)
-                {color: colours['{{ $element->name }}']},
+
+            @foreach ($stats->flavours->colours  as $index => $element)
+                {color: colours['{{ $element }}']},
                 // I want to do something like $element->colour to get the colour
             @endforeach
             ]
