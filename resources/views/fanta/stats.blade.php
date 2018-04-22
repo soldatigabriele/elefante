@@ -56,6 +56,8 @@ html, body {
 @endsection
 
 @section('header-scripts')
+
+// Colours
 <script type="text/javascript">
 google.charts.load('current', {packages: ['corechart', 'bar']});
 google.charts.setOnLoadCallback(drawBasic);
@@ -65,7 +67,7 @@ function drawBasic() {
     var data = google.visualization.arrayToDataTable([
         ['Element', 'Count', { role: 'style' }],
         @foreach ($stats->colours->distinct  as $index => $element)
-            ['{{$element->name}}', {{ $element->count }} , '{{ $element->name}}'],
+            ['{{ $element->name }}', {{ $element->count }} , '{{ $element->name}}'],
         @endforeach
       ]);
     
@@ -76,15 +78,44 @@ function drawBasic() {
         },
         vAxis: {
             title: 'Count'
+        },
+        animation:{
+            startup: true,
+            duration: 400,
         }
     };
-        
+
     var chart = new google.visualization.ColumnChart(
         document.getElementById('chart_div'));
             
     chart.draw(data, options);
 }
 </script>
+
+// Countries
+<script type="text/javascript">
+
+      google.charts.load('current', {
+        'packages':['geochart'],
+        'mapsApiKey': 'AIzaSyBo0h7ZKNAu_0bEUgHPB2i2iv3yxk_GYfw'
+      });
+      google.charts.setOnLoadCallback(drawRegionsMap);
+
+      function drawRegionsMap() {
+        var data = google.visualization.arrayToDataTable([
+            ['Country', 'Popularity'],
+            @foreach ($stats->countries->distinct  as $index => $element)
+                ['{{ $element->name }}', {{ $element->count }}],
+            @endforeach
+        ]);
+
+        var options = {};
+
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+        chart.draw(data, options);
+      }
+    </script>
 @endsection
         
 @section('content')
@@ -104,8 +135,9 @@ function drawBasic() {
         @endforeach
         <hr>
         </div>
+        <div id="regions_div" style="width: 900px; height: 500px;"></div>
 
-            <div id="chart_div"/></div>
+            <div id="chart_div"></div>
 
 
         <div> 
