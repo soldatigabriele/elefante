@@ -60,27 +60,44 @@ html, body {
 
 <script type="text/javascript">
 
-// Colours
 google.charts.load("current", {packages:["corechart", "bar", "geochart"], 'mapsApiKey': 'AIzaSyBo0h7ZKNAu_0bEUgHPB2i2iv3yxk_GYfw' });
 
+// Colours
 google.charts.setOnLoadCallback(drawColoursChart);
 
+let colours = {
+    'Red': '#FF5252',
+    'Pink': '#F8BBD0',
+    'Purple': '#512DA8',
+    'Blue': '#1976D2',
+    'Light_blue': '#03A9F4',
+    'Green': '#388E3C',
+    'Orange': '#FF9800',
+    'Yellow': '#FFEB3B',
+    'White': '#f0f0f0',
+    'Black': '#212121',
+    'Silver': '#607D8B',
+}
+
 function drawColoursChart() {
-    
+    @foreach ($stats->colours->distinct  as $index => $element)
+        console.log('{{ $element->name}}');
+        console.log( colours['{{ $element->name}}'] );
+
+    @endforeach
     var data = google.visualization.arrayToDataTable([
         ['Element', 'Count', { role: 'style' }],
         @foreach ($stats->colours->distinct  as $index => $element)
-            ['{{ $element->name }}', {{ $element->count }} , '{{ $element->name}}'],
+            ['{{ $element->name }}', {{ $element->count }} , colours['{{ $element->name}}']],
         @endforeach
       ]);
     
     var options = {
-        title: 'Colours',
         hAxis: {
-            title: 'Colour',
+            title: '',
         },
         vAxis: {
-            title: 'Count'
+            title: ''
         },
         width: 1200,
         height: 400,
@@ -93,9 +110,6 @@ function drawColoursChart() {
             
         coloursChart.draw(data, options);
 }
-</script>
-
-<script type="text/javascript">
   
     // World
     
@@ -210,7 +224,6 @@ function drawColoursChart() {
         ]);
 
         var options = {
-            title: 'Flavours',
             pieHole: 0.4,
             colors: [ '#ffd175', '#ffc85b', '#efae2d', '#ffad0f', '#ffa900']
         };
@@ -228,22 +241,21 @@ function drawColoursChart() {
         var data = google.visualization.arrayToDataTable([
             ['Element', 'Count', { role: 'style' }],
             @foreach ($stats->capacities  as $index => $element)
-                ['{{ $element->capacity }}', 
-                {{ $element->count }} ,
+                ['{{ $element->capacity }}',
+                {{ $element->count }},
                 colors[Math.floor(Math.random()*colors.length)] ], 
             @endforeach
         ]);
         
         var options = {
-            title: 'Capacity',
             hAxis: {
-                title: 'Capacity',
+                title: '',
             },
             vAxis: {
-                title: 'Count'
+                title: ''
             },
             animation:{
-                startup: true,
+                startup: false,
                 duration: 400,
             },
             width: 1200,
@@ -267,11 +279,16 @@ function drawColoursChart() {
         <div class="title m-b-md">
         Here some stats...
         </div>
+        <h3>Flavour</h3>
         <div class="chart" id="flavours_div" style="width: 900px; height: 500px;"></div>
+        <h3>Capacity</h3>
         <div class="chart" id="capacities_div"></div>
+        <h3>Colour</h3>
         <div class="chart" id="colours_div"></div>
+        <h3>Country</h3>
         <div class="chart" id="world_div" style="width: 900px; height: 500px;"></div>
         <div class="chart" id="europe_div" style="width: 900px; height: 500px;"></div>
+        <h3>Year</h3>
         <div class="chart" id="years_div"></div>
 
     </div>
