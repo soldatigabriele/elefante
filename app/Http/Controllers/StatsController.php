@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DB;
+use App\Flavour;
 use Illuminate\Http\Request;
 
 class StatsController extends Controller
@@ -30,7 +31,7 @@ class StatsController extends Controller
                     ->get();
 
         $stats->flavours = new \StdClass();
-        $stats->flavours->count = \App\FLavour::all()->count();
+        $stats->flavours->count = FLavour::all()->count();
         $stats->flavours->distinct = DB::table('fantas')
                      ->select(DB::raw('count(fantas.flavour_id) count, flavours.name'))
                      ->join('flavours', 'fantas.flavour_id', '=', 'flavours.id')
