@@ -21,12 +21,13 @@ Route::get('/', function(){
 })->name('home');
 
 Route::get('fanta', 'FantaController@find')->name('fanta.find');
+Route::post('fanta', 'FantaController@store')->name('fanta.store');
 Route::get('fanta/filter', 'FantaController@filter')->name('fanta.filter');
 Route::get('fanta/create', 'FantaController@create')->name('fanta.create')->middleware('auth');
+Route::get('fanta/stats', 'StatsController@stats')->name('fanta.stats');
 Route::get('fanta/{fanta}', 'FantaController@show')->name('fanta.show');
 Route::get('fanta/{fanta}/edit', 'FantaController@edit')->name('fanta.edit')->middleware('auth');;
 Route::put('fanta/{fanta}', 'FantaController@update')->name('fanta.update');
-Route::post('fanta', 'FantaController@store')->name('fanta.store');
 
 Route::get('fanta/{fanta}/images/create', 'ImagesController@create')->name('images.create');
 

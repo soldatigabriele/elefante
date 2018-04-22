@@ -68,6 +68,7 @@
             <a href="{{ route('fanta.create') }}">Add</a>
             <a href="{{ route('fanta.filter') }}">All</a>
             <a href="{{ route('fanta.find') }}">Find</a>
+            <a href="{{ route('fanta.stats') }}">Stats</a>
         </div>
     </div>
 </div>

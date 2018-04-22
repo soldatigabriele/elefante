@@ -18,7 +18,9 @@
     <!-- Scripts -->
     <script src="/js/application.js"></script>
     <script src="/js/dropzone.js"></script>
+    <script src="/js/charts.js"></script>
     
+  @yield('header-scripts')
     <style>
     .selectize-input>.item{
         background: #1b9dec !important;
