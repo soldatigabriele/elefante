@@ -48,10 +48,16 @@ html, body {
 .m-b-md {
     margin-bottom: 30px;
 }
-
-.chart{
-    display: inline-block;
-    margin:0px auto;
+.chart {
+  width: 100%; 
+  min-height: 450px;
+}
+.rrr{
+    margin:0 !important;
+}
+#flavours_div {
+width:inherit;
+height:inherit;
 }
 </style>
 @endsection
@@ -207,12 +213,6 @@ function drawColoursChart() {
     }
     
     // Flavours
-    @foreach ($stats->flavours->colours  as $index => $element)
-    console.log('{{ $element }}');
-    console.log(colours['{{ $element }}']);
-
-    @endforeach
-
     google.charts.setOnLoadCallback(drawFlavoursChart);
     function drawFlavoursChart() {
         var data = google.visualization.arrayToDataTable([
@@ -225,15 +225,15 @@ function drawColoursChart() {
         var options = {
             pieHole: 0.4,
             slices: [
-
-            @foreach ($stats->flavours->colours  as $index => $element)
-                {color: colours['{{ $element }}']},
-                // I want to do something like $element->colour to get the colour
-            @endforeach
+                @foreach ($stats->flavours->distinct  as $index => $element)
+                    {color: colours['{{ $element->colour }}']},
+                    // I want to do something like $element->colour to get the colour
+                @endforeach
             ]
         };
 
         var flavoursChart = new google.visualization.PieChart(document.getElementById('flavours_div'));
+
         flavoursChart.draw(data, options);
       }
 
@@ -273,31 +273,50 @@ function drawColoursChart() {
         var capacityChart = new google.visualization.ColumnChart(
             document.getElementById('capacities_div'));
                 
-        capacityChart.draw(data, options);
+            capacityChart.draw(data, options);
     }
+
+$(window).resize(function(){
+    drawColoursChart()
+    drawWorldMap()
+    drawEuropeMap()
+    drawYearChart()
+    drawFlavoursChart()
+    drawCapacityChart()
+})
+
 </script>
 @endsection
         
 @section('content')
-
-<div class="flex-center position-ref full-height">
+<div class="container">
     <div class="content">
         <div class="title m-b-md">
         Here some stats...
         </div>
-        <h3>Flavour</h3>
-        <div class="chart" id="flavours_div" style="width: 900px; height: 500px;"></div>
-        <h3>Capacity</h3>
-        <div class="chart" id="capacities_div"></div>
-        <h3>Colour</h3>
-        <div class="chart" id="colours_div"></div>
-        <h3>Country</h3>
-        <div class="chart" id="world_div" style="width: 900px; height: 500px;"></div>
-        <div class="chart" id="europe_div" style="width: 900px; height: 500px;"></div>
-        <h3>Year</h3>
-        <div class="chart" id="years_div"></div>
-
     </div>
 </div>
+<div class="sm-12 rrr" style="">
+            <h3>Flavour</h3>
+            <div class="chart" id="flavours_div"></div>
+    <div class="md-12">
+            <h3>Capacity</h3>
+            <div class="chart" id="capacities_div"></div>
+    </div>
+    <div class="md-12">
+            <h3>Colour</h3>
+            <div class="chart" id="colours_div"></div>
+    </div>
+    <div class="md-12">
+            <h3>Country</h3>
+            <div class="chart" id="world_div"></div>
+            <div class="chart" id="europe_div"></div>
+    </div>
+    <div class="md-12">
+            <h3>Year</h3>
+            <div class="chart" id="years_div"></div>
+    </div>
+</div>
+
 @endsection
         

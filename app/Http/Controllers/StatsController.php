@@ -65,13 +65,18 @@ class StatsController extends Controller
             $stats->flavours->colours->$flavour = $groupColour; 
         }
 
-        
         $flavCollection = collect($stats->flavours->distinct);
-        $stats->flavours->distinct = $flavCollection->sortBy('name')->toArray();
         
         $coloursCollection = collect($stats->flavours->colours);
-        $stats->flavours->colours = $coloursCollection->sortKeys()->toArray();
+        $stats->flavours->colours = $coloursCollection->toArray();
+        
+        foreach($stats->flavours->distinct as $d){
+            $colour = $stats->flavours->colours[$d->name];
+            $d->colour = $colour; 
+        }
 
+        $stats->flavours->distinct = $flavCollection->sortBy('colour')->toArray();
+        
         // dump(collect($stats->flavours->colours), collect($stats->flavours->distinct));
         
         $colours = new \StdClass();
