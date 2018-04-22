@@ -106,7 +106,7 @@ function drawColoursChart() {
         coloursChart.draw(data, options);
 }
   
-    // World
+// Countries World
     
       google.charts.setOnLoadCallback(drawWorldMap);
 
@@ -131,7 +131,7 @@ function drawColoursChart() {
         countriesWorldChart.draw(data, options);
       }
 
-        // Countries
+// Countries Europe
          
       google.charts.setOnLoadCallback(drawEuropeMap);
 
@@ -206,11 +206,11 @@ function drawColoursChart() {
         yearsChart.draw(data, options);
     }
 
-    // Flavours
+// Flavours
     google.charts.setOnLoadCallback(drawFlavoursChart);
     function drawFlavoursChart() {
         var data = google.visualization.arrayToDataTable([
-        ['Task', 'Hours per Day'],
+        ['Flavour', 'How many'],
         @foreach ($stats->flavours->distinct  as $index => $element)
             ['{{ $element->name }}', {{ $element->count }}],
         @endforeach
@@ -218,12 +218,18 @@ function drawColoursChart() {
 
         var options = {
             pieHole: 0.4,
-            colors: [ '#ffd175', '#ffc85b', '#efae2d', '#ffad0f', '#ffa900']
+            slices: [
+            @foreach ($stats->flavours->distinct  as $index => $element)
+                {color: colours['{{ $element->name }}']},
+                // I want to do something like $element->colour to get the colour
+            @endforeach
+            ]
         };
 
         var flavoursChart = new google.visualization.PieChart(document.getElementById('flavours_div'));
         flavoursChart.draw(data, options);
       }
+
 // Capacities 
     google.charts.setOnLoadCallback(drawCapacityChart);
 

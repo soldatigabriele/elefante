@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DB;
 use App\Tag;
 use App\Logo;
+use App\Fanta;
 use App\Colour;
 use App\Country;
 use App\Flavour;
@@ -43,6 +44,37 @@ class StatsController extends Controller
                      ->groupBy('flavour_id')
                      ->get();
 
+
+        // Find the main colour of the flavours
+        $flavour_groups = Fanta::all()->groupBy('flavour_id');
+        $stats->flavours->colours= new \StdClass();
+        foreach($flavour_groups as $group){
+            $colourCount = [];
+            $flavour = '';
+
+            $group->each(function($item) use (&$colourCount, &$flavour){
+                $flavour = $item->flavour->name;
+                $item->colours->each(function($colour) use (&$colourCount) { 
+                    $colourCount[$colour->name] = (!isset($colourCount[$colour->name]))? 1 : $colourCount[$colour->name] + 1;
+                });
+            });
+            // Get the most popular colour
+            arsort($colourCount);
+            $groupColour = collect($colourCount)->keys()->first();
+            
+            // dd($stats->flavours->distinct);
+            $stats->flavours->colours->$flavour = $groupColour; 
+        }
+
+        $colours = new \StdClass();
+        $colours->group = DB::table('fantas')
+                        ->select(DB::raw('count(c.name) as count, c.name'))
+                        ->join('colour_fanta as cf', 'cf.fanta_id', '=', 'fantas.id')
+                        ->join('colours as c', 'cf.colour_id', '=', 'c.id')
+                        ->groupBy('c.name')
+                        ->orderByRaw('count(c.name) desc')
+                        ->get();
+                
         $stats->countries = new \StdClass();
         $stats->countries->count = Country::all()->count();
         $stats->countries->distinct = DB::table('fantas')
