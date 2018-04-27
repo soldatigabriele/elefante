@@ -90,6 +90,7 @@ function drawColoursChart() {
 
         var options = {
             region: '150',
+            width: $('#europe_div').width(),
             colorAxis: {colors: ['#fcd276', '#ffaf00']},
             defaultColor: '#f5f5f5',
             magnifyingGlass: {
@@ -235,8 +236,9 @@ html, body {
     align-items: center;
     display: flex;
     justify-content: center;
+    position:relative;
+    top:-10px;
 }
-
 .position-ref {
     position: relative;
 }
@@ -272,41 +274,58 @@ html, body {
   width: 100%; 
   min-height: 450px;
 }
-.rrr{
-    margin:0 !important;
+.outbox{
+    margin:auto;
+    position: relative;
+    text-align: center;
+    max-width: 1000px;
 }
 #years_div {
-width:inherit;
-height:inherit;
+    width:inherit;
+    height:inherit;
+}
+.maps{
+    margin-top:20px;
+    margin-bottom:20px;
+    position:relative;
+    right:0px;
 }
 </style>
 @endsection      
 
 @section('content')
 <div class="container">
+<br>
     <div class="content">
-        <div class="title m-b-md">
-        Here some stats...
+        <div class="title">
+        <h1>Here some stats...</h1>
         </div>
     </div>
-    <div class="sm-12 rrr">
+    <br>
+    <div class="sm-12 lg-6 md-6 outbox" style="margin-top:100px;">
         <div class="md-12">
             <h3>Flavour</h3>
             <div class="chart flex-center" id="flavours_div"></div>
         </div>
+        <br>
         <div class="md-12">
             <h3>Capacity</h3>
             <div class="chart flex-center" id="capacities_div"></div>
         </div>
+        <br>
         <div class="md-12">
             <h3>Colour</h3>
             <div class="chart flex-center" id="colours_div"></div>
         </div>
+        <br>
         <div class="md-12">
             <h3>Country</h3>
-            <div class="chart flex-center" id="world_div"></div>
-            <div class="chart flex-center" id="europe_div"></div>
+            <br>
+            <div class="chart maps" id="world_div"></div>
+            <br>
+            <div class="chart maps flex-center" id="europe_div"></div>
         </div>
+        <br>
         <div class="md-12">
             <h3>Year</h3>
             <div class="chart flex-center" id="years_div"></div>
