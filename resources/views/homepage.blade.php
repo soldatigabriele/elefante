@@ -33,7 +33,6 @@
 
     .content {
         text-align: center;
-        margin-top:80px;
     }
 
     .title {
