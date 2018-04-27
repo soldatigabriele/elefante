@@ -208,10 +208,10 @@ function drawColoursChart() {
             capacityChart.draw(data, options);
     }
 
-$(window).resize(function(){
-    drawColoursChart()
     drawWorldMap()
     drawEuropeMap()
+$(window).resize(function(){
+    drawColoursChart()
     drawYearChart()
     drawFlavoursChart()
     drawCapacityChart()
