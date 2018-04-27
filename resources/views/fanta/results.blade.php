@@ -2,7 +2,9 @@
 
 @section('style')
 <style>
-    
+body{
+    /* background:#a3a3a3; */
+}
 .buttons{
     position:absolute;
     bottom:10px;
@@ -14,8 +16,14 @@
 }
 .carte-results{
     text-align:center;
+    padding:10px 0px 0px 0px;
     margin-bottom:10px;
+    /* margin:0 0 10px 0; */
     height:230px;
+}
+.card{
+    /* border:0px solid black; */
+    border-radius:0px;
 }
 </style>
 @endsection
@@ -24,12 +32,8 @@
 
 @isset($fantas)
 <div class="container">
-    
-<a role="buttton" href="{{route('fanta.find')}}" class="btn btn-success">Search More</a>
-
-
-<div class="clearfix"></div><br>
-
+    <div class="clearfix"></div><br>
+    <a role="buttton" href="{{route('fanta.find')}}" class="btn btn-success">Refine Search</a>
     <div class="" style="padding:10px;margin:6px;text-align:center;">
         <h4>Matches</h4>
         <div class="row">
