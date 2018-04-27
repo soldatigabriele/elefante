@@ -302,7 +302,7 @@ html, body {
         </div>
     </div>
     <br>
-    <div class="sm-12 lg-6 md-6 outbox" style="margin-top:100px;">
+    <div class="sm-12 lg-6 md-6 outbox" style="margin-top:50px;">
         <div class="md-12">
             <h3>Flavour</h3>
             <div class="chart flex-center" id="flavours_div"></div>

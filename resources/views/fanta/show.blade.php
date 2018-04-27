@@ -1,5 +1,13 @@
 @extends('layouts.fanta')
-
+@section('style')
+<style>
+.key{
+}
+.els{
+    font-weight:600;
+}
+</style>
+@endsection
 @section('content')
 <div class="container">
     <br>        
@@ -9,30 +17,48 @@
         <div class="clearfix"></div><br>
         <div class="card">
             <div class="card-body">
-                <div class="col">
-                    <div>
+                <div class="row">
+                    <div class="col key">
                         Colour: 
+                    </div>
+                    <div class="col-8 els">
                         @foreach($fanta->colours as $colour)
                         {{$colour->name}}
                         @endforeach
                     </div>
-                    <div>
-                        Flavour: {{ $fanta->flavour->name }}
+                </div>
+                <div class="row">
+                    <div class="col key">
+                        Flavour: 
                     </div>
-                    <div>
-                        Country: {{ $fanta->country->name }}
+                    <div class="col-8 els">
+                        {{ $fanta->flavour->name }}
                     </div>
-                    <div>
+                </div>
+                <div class="row">
+                    <div class="col key">
+                        Country: 
+                    </div>
+                    <div class="col-8 els">
+                    {{ $fanta->country->name }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col key">
                         Tags: 
+                    </div>
+                    <div class="col-8 els">
                         @foreach($fanta->tags as $tag)
                         {{$tag->name}},
                         @endforeach
                     </div>
-                    <div>
-                        Year: {{$fanta->year}}
+                </div>
+                <div class="row">
+                    <div class="col key">
+                        Year: 
                     </div>
-                    <div>
-                        Created at: {{$fanta->created_at}}
+                    <div class="col-8 els">
+                        {{$fanta->year}}
                     </div>
                 </div>
             </div>
