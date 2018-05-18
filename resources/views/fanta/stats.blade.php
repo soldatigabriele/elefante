@@ -290,6 +290,12 @@ html, body {
     position:relative;
     right:0px;
 }
+.count{
+    font-size:140%;
+}
+.world{
+    font-size:120%;
+}
 </style>
 @endsection      
 
@@ -304,13 +310,18 @@ html, body {
     <br>
     <div class="sm-12 lg-6 md-6 outbox" style="margin-top:50px;">
         <div class="md-12">
-            <h3>Flavour</h3>
-            <div class="chart flex-center" id="flavours_div"></div>
+            <h2> <span class="count"> {{ $stats->count }} </span> different cans from all over the <span class="world">WORLD!</span></h2>
         </div>
+        <br>
         <br>
         <div class="md-12">
             <h3>Capacity</h3>
             <div class="chart flex-center" id="capacities_div"></div>
+        </div>
+        <br>
+        <div class="md-12">
+            <h3>Year</h3>
+            <div class="chart flex-center" id="years_div"></div>
         </div>
         <br>
         <div class="md-12">
@@ -327,9 +338,10 @@ html, body {
         </div>
         <br>
         <div class="md-12">
-            <h3>Year</h3>
-            <div class="chart flex-center" id="years_div"></div>
+            <h3>Flavour</h3>
+            <div class="chart flex-center" id="flavours_div"></div>
         </div>
+        <br>
     </div>
 </div>
 

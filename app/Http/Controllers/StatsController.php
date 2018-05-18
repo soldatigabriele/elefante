@@ -17,6 +17,7 @@ class StatsController extends Controller
     {
         if (!isset($stats)) $stats = new \stdClass();
 
+        $stats->count = Fanta::all()->count();
         $stats->colours = new \StdClass();
         $stats->colours->count = Colour::all()->count();
         $stats->colours->distinct = DB::table('fantas')
