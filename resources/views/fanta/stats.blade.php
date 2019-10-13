@@ -109,18 +109,17 @@ function drawColoursChart() {
 
     function drawYearChart() {
         
-        let colors = [ '#ffd175', '#ffc85b', '#efae2d', '#ffad0f', '#ffa900']
-
         var data = google.visualization.arrayToDataTable([
-            ['Element', 'Count', { role: 'style' }],
+            ['Element', 'Count'],
             @foreach ($stats->years  as $index => $element)
                 ['{{ $element->year }}',
                 {{ $element->count }},
-                colors[Math.floor(Math.random()*colors.length)] ], 
+                ],
             @endforeach
         ]);
-        
+
         var options = {
+            colors: ['#FFD175'],
             hAxis: {
                 title: '',
             },
@@ -137,7 +136,7 @@ function drawColoursChart() {
             legend: { position: "none" },
         };
 
-        var yearChart = new google.visualization.ColumnChart(
+        var yearChart = new google.visualization.SteppedAreaChart(
             document.getElementById('years_div'));
                 
             yearChart.draw(data, options);

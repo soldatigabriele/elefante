@@ -117,7 +117,7 @@ class StatsController extends Controller
             ->join('logos', 'fantas.logo_id', '=', 'logos.id')
             ->groupBy('logo_id')
             ->get();
-// dump($stats->years);
+
         return view('fanta.stats')->with('stats', $stats);
 
     }
