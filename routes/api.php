@@ -28,6 +28,7 @@ Route::get('/year/{year}', function (Request $request, $year) {
     $fanta = Fanta::where('year', $year)->inRandomOrder()->first() ?? Fanta::inRandomOrder()->first();
     return JsonResponse::create([
         'country' => $fanta->country->name,
+        'flavour' => $fanta->flavour->name,
         'colour' => $fanta->getColours(),
     ]);
 });
