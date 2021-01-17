@@ -129,7 +129,7 @@ class FantaController extends Controller
      */
     public function filter(Request $request)
     {
-        $fantas = Fanta::all();
+        $fantas = Fanta::orderBy('color')->get();
         // LOGO
         $logo = ($request->logo);
         if($logo != 4){
