@@ -303,7 +303,7 @@ html, body {
 <br>
     <div class="content">
         <div class="title">
-        <h1>Here some stats...</h1>
+        <h1>Here's some stats...</h1>
         </div>
     </div>
     <br>
