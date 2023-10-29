@@ -14,6 +14,7 @@
     <div class="col-12">
         <a role="buttton" href="{{route('home')}}" class="btn btn-success">Home</a>
         <a role="buttton" href="{{route('fanta.find')}}" class="btn btn-success">Search Again</a>
+        @auth<a role="button" class="btn btn-warning" href="{{ route('fanta.edit', $fanta) }}">Edit</a>@endauth 
         <div class="clearfix"></div><br>
         <div class="card">
             <div class="card-body">
