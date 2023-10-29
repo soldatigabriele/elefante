@@ -57,7 +57,7 @@ function drawColoursChart() {
 
       function drawWorldMap() {
         var data = google.visualization.arrayToDataTable([
-            ['Country', 'Popularity'],
+            ['Country', 'Cans'],
             @foreach ($stats->countries->distinct  as $index => $element)
                 ['{{ $element->name }}', {{ $element->count }}],
             @endforeach
@@ -82,7 +82,7 @@ function drawColoursChart() {
 
       function drawEuropeMap() {
         var data = google.visualization.arrayToDataTable([
-            ['Country', 'Popularity'],
+            ['Country', 'Cans'],
             @foreach ($stats->countries->distinct  as $index => $element)
                 ['{{ $element->name }}', {{ $element->count }}],
             @endforeach
@@ -299,49 +299,50 @@ html, body {
 @endsection      
 
 @section('content')
-<div class="container">
-<br>
-    <div class="content">
+<div class="container-fluid px-5">
+    <div class="content mt-5">
         <div class="title">
         <h1>Here's some stats...</h1>
         </div>
     </div>
+        <div class="md-12 text-center mt-4">
+        <h3> <span class="count"> {{ $stats->count }} </span> different cans from all over the <span class="world">WORLD!</span></h3>
+    </div> 
     <br>
-    <div class="sm-12 lg-6 md-6 outbox" style="margin-top:50px;">
-        <div class="md-12">
-            <h2> <span class="count"> {{ $stats->count }} </span> different cans from all over the <span class="world">WORLD!</span></h2>
-        </div>
-        <br>
-        <br>
-        <div class="md-12">
+    <div class="row mt-4">
+        <div class="col-6">
             <h3>Capacity</h3>
             <div class="chart flex-center" id="capacities_div"></div>
         </div>
         <br>
-        <div class="md-12">
+        <div class="col-6">
             <h3>Year</h3>
             <div class="chart flex-center" id="years_div"></div>
         </div>
         <br>
-        <div class="md-12">
+        <div class="col-6">
             <h3>Colour</h3>
             <div class="chart flex-center" id="colours_div"></div>
         </div>
-        <br>
-        <div class="md-12">
-            <h3>Country</h3>
-            <br>
-            <div class="chart maps" id="world_div"></div>
-            <br>
-            <div class="chart maps flex-center" id="europe_div"></div>
-        </div>
-        <br>
-        <div class="md-12">
+        <div class="col-6">
             <h3>Flavour</h3>
             <div class="chart flex-center" id="flavours_div"></div>
         </div>
         <br>
+        <div class="col-12">
+            <h3>Country</h3>
+        </div>
+        <div class="col-6">
+            <div class="chart maps" id="world_div"></div>
+        </div>
+        <div class="col-6">
+            <div class="chart maps flex-center" id="europe_div"></div>
+        </div>
+        <br>
+        
     </div>
+
+
 </div>
 
 @endsection
